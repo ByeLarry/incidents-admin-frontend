@@ -13,10 +13,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class AppComponent {
   title = 'incidents-admin-frontend';
 
-  constructor(private modalService: NgbModal) {
-  }
+  constructor(private modalService: NgbModal) {}
 
-  public open(modal: any): void {
+  public open(modal: unknown): void {
     this.modalService.open(modal);
   }
 }
