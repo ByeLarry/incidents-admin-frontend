@@ -5,21 +5,17 @@ import { SidebarEnum } from '../enums/sidebar.enum';
   providedIn: 'root',
 })
 export class SidebarService {
-  private sidebarState = signal<SidebarEnum>(SidebarEnum.CATEGORIES);
-
-  get state() {
-    return this.sidebarState();
-  }
+  state = signal<SidebarEnum>(SidebarEnum.CATEGORIES);
 
   setCategoriesSection() {
-    this.sidebarState.set(SidebarEnum.CATEGORIES);
+    this.state.set(SidebarEnum.CATEGORIES);
   }
 
   setUsersSection() {
-    this.sidebarState.set(SidebarEnum.USERS);
+    this.state.set(SidebarEnum.USERS);
   }
 
   setPointsSection() {
-    this.sidebarState.set(SidebarEnum.POINTS);
+    this.state.set(SidebarEnum.POINTS);
   }
 }

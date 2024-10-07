@@ -1,13 +1,39 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { SidebarService } from '../../services/sidebar.service';
+import { CommonModule } from '@angular/common';
+import { SidebarEnum } from '../../enums/sidebar.enum';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [RouterLink],
+  imports: [CommonModule],
   templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent {
+  sidebarEnum = SidebarEnum;
+  constructor(public readonly sidebarService: SidebarService) {}
 
+  selectCategoriesSection() {
+    this.sidebarService.setCategoriesSection();
+  }
+
+  selectUsersSection() {
+    this.sidebarService.setUsersSection();
+  }
+
+  selectPointsSection() {
+    this.sidebarService.setPointsSection();
+  }
+
+  isCategoriesActive() {
+    return this.sidebarService.state() === SidebarEnum.CATEGORIES;
+  }
+
+  isUsersActive() {
+    return this.sidebarService.state() === SidebarEnum.USERS;
+  }
+
+  isPointsActive() {
+    return this.sidebarService.state() === SidebarEnum.POINTS;
+  }
 }

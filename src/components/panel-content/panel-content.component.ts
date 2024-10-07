@@ -1,13 +1,30 @@
-import { Component, ComponentFactoryResolver } from '@angular/core';
+import { Component } from '@angular/core';
 import { SidebarService } from '../../services/sidebar.service';
+import { SidebarEnum } from '../../enums/sidebar.enum';
+import { CategoriesComponent } from '../categories/categories.component';
+import { UsersComponent } from '../users/users.component';
+import { CommonModule } from '@angular/common';
+import { PointsComponent } from '../points/points.component';
 
 @Component({
   selector: 'app-panel-content',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './panel-content.component.html',
-  styleUrl: './panel-content.component.scss',
 })
 export class PanelContentComponent {
   constructor(private readonly sidebarService: SidebarService) {}
+
+  getContentComponent() {
+    switch (this.sidebarService.state()) {
+      case SidebarEnum.CATEGORIES:
+        return CategoriesComponent;
+      case SidebarEnum.USERS:
+        return UsersComponent;
+      case SidebarEnum.POINTS:
+        return PointsComponent;
+      default:
+        return CategoriesComponent;
+    }
+  }
 }

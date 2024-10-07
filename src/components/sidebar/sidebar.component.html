@@ -2,25 +2,28 @@
     aria-labelledby="staticBackdropLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="staticBackdropLabel">Меню</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
     </div>
     <hr>
     <div class="offcanvas-body">
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link active" routerLink="/panel/categories">
+                <button class="nav-link" aria-label="Категории" data-bs-dismiss="offcanvas"
+                    (click)="selectCategoriesSection()" [ngClass]="{ 'text-dark': isCategoriesActive() }">
                     <i class="bi bi-tags"></i> Категории
-                </a>
+                </button>
             </li>
             <li class="nav-item">
-                <a class="nav-link" routerLink="/panel/users">
+                <button class="nav-link" data-bs-dismiss="offcanvas" aria-label="Пользователи"
+                    (click)="selectUsersSection()" [ngClass]="{ 'text-dark': isUsersActive() }">
                     <i class="bi bi-people"></i> Пользователи
-                </a>
+                </button>
             </li>
             <li class="nav-item">
-                <a class="nav-link" routerLink="/panel/points">
+                <button class="nav-link" data-bs-dismiss="offcanvas" aria-label="Точки" (click)="selectPointsSection()"
+                    [ngClass]="{ 'text-dark': isPointsActive() }">
                     <i class="bi bi-geo-alt"></i> Точки
-                </a>
+                </button>
             </li>
         </ul>
     </div>
