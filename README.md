@@ -15,7 +15,7 @@
 npm install
 
 # Запуск в dev режиме
-npm run dev
+npm run start
 ```
 
 ### Docker 
