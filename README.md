@@ -28,7 +28,8 @@ docker-compose up -d
 
 _Диаграммы можно сохранять и редактировать в ***[draw.io](https://app.diagrams.net/)***_
 
-##### Пока тут пусто...
+- ### Диаграмма прецедентов
+     ![Диаграмма прецедентов для администратора](https://github.com/user-attachments/assets/b1c4d789-bf0a-412c-888d-242d12e7d5ab)
 
 ## Ссылки
 
