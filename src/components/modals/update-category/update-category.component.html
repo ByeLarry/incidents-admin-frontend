@@ -1,0 +1,29 @@
+<div class="modal fade" id="updateCategoryModal" tabindex="-1" aria-labelledby="updateCategoryModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 long-text" id="updateCategoryModalLabel" >{{ category.name }}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="update-category-name">Название</span>
+                    <input type="text" class="form-control" aria-label="Sizing example input"
+                        aria-describedby="update-category-name" required [(ngModel)]="editableCategory.name"
+                        (input)="onInputChange()">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="update-category-color">Цвет</span>
+                    <input type="text" class="form-control" aria-label="Sizing example input"
+                        aria-describedby="update-category-color" [(ngModel)]="editableCategory.color"
+                        (input)="onInputChange()">
+                </div>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-primary" [disabled]="isButtonDisabled"
+                    (click)="onSave()">Сохранить</button>
+            </div>
+        </div>
+    </div>
+</div>

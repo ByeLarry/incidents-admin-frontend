@@ -1,0 +1,30 @@
+<div class="card border-light">
+    <ng-container *ngIf="categories$ | async as categories">
+        <ng-container *ngFor="let category of categories">
+            <ng-container *ngTemplateOutlet="categoryListItem; context: { $implicit: category }"></ng-container>
+        </ng-container>
+    </ng-container>
+</div>
+
+<ng-template #categoryListItem let-category>
+    <div class="card mb-4 border-primary">
+        <div class="card-header d-flex justify-content-between border-primary">
+            <h4 class="h4">{{ category.name }}</h4>
+            <h6 class="h6">id: {{ category.id }}</h6>
+        </div>
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Цвет: {{ category.color }}</li>
+                <li class="list-group-item">Дата создание: {{ category.createdAt | date: 'HH:mm dd.MM.yyyy' }}
+                </li>
+                <li class="list-group-item">Дата обновления: {{ category.updatedAt | date: 'HH:mm dd.MM.yyyy' }}</li>
+            </ul>
+            <div class="d-flex gap-3 mt-3">
+                <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#updateCategoryModal"
+                    (click)="onChangeButtonClick(category)">Изменить</button>
+                <app-update-category-modal [category]="selectedCategory || category" />
+                <button class="btn btn-danger w-100">Удалить</button>
+            </div>
+        </div>
+    </div>
+</ng-template>

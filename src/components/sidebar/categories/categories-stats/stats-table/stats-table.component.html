@@ -1,0 +1,30 @@
+<table class="table table-light table-striped border border-dark">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Название</th>
+            <th scope="col">Количество инцидентов</th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngIf="stats$ | async as stats">
+            <ng-container *ngFor="let stat of stats">
+                <ng-container *ngTemplateOutlet="statsTableRow; context: { $implicit: stat }"></ng-container>
+            </ng-container>
+        </ng-container>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="2">Всего</td>
+            <td>10</td>
+        </tr>
+    </tfoot>
+</table>
+
+<ng-template #statsTableRow let-rowData>
+    <tr>
+        <th scope="row">{{ rowData.id }}</th>
+        <td>{{ rowData.name }}</td>
+        <td>{{ rowData.incidentsCount }}</td>
+    </tr>
+    <ng-template />
