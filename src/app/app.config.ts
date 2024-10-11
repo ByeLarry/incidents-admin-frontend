@@ -7,7 +7,7 @@ import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
-import { BaseUrlInterceptor } from '../interceptors';
+import { BaseUrlInterceptor } from '../libs/interceptors';
 
 export const appConfig: ApplicationConfig = {
   providers: [

@@ -1,19 +1,34 @@
-<section class="row">
-    <form class="col card">
+<section class="row" style="width: 300px;">
+    <form class="col card" [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="text-center mb-4">
             <h1>Incidents</h1>
         </div>
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Имя пользователя</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
-            <div id="emailHelp" class="form-text">Пользователь root является пользователем по умолчанию</div>
+            <label for="inputName" class="form-label">Имя</label>
+            <input type="text" class="form-control" id="inputName" formControlName="name" aria-describedby="emailHelp"
+                required />
+            <ng-container *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
+                <div class="text-danger">Минимальная длина имени 3 символа</div>
+            </ng-container>
         </div>
+
         <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Пароль</label>
-            <input type="password" class="form-control" id="exampleInputPassword1">
+            <label for="inputPassword" class="form-label">Пароль</label>
+            <input type="password" class="form-control" id="inputPassword" formControlName="password" required>
+            <ng-container *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+                <div class="text-danger">Минимальная длина пароля 8 символов</div>
+            </ng-container>
         </div>
+
         <div class="mb-3 text-center">
-            <button type="submit" class="btn btn-primary">Войти</button>
+            @if (!isSubmitting) {
+                <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Войти</button>
+            } 
+            @else {
+                <app-spinner></app-spinner>
+            }
         </div>
     </form>
 </section>
+
+<app-toast #toast></app-toast>

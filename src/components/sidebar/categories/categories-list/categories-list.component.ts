@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UpdateCategoryModalComponent } from '../../../modals/update-category/update-category.components';
 import { CategoryDto } from '../dto';
-import { CategoryService } from '../../../../services/category.service';
+import { CategoryService } from '../../../../libs/services';
 
 @Component({
   selector: 'app-categories-list',

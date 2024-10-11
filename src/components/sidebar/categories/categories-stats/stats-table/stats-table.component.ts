@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { CategoryService } from '../../../../../services/category.service';
+import { CategoryService } from '../../../../../libs/services';
 
 @Component({
   selector: 'app-stats-table',

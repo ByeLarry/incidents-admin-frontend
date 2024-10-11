@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { SidebarService } from '../../services/sidebar.service';
 import { CommonModule } from '@angular/common';
-import { SidebarEnum } from '../../enums/sidebar.enum';
+import { SidebarService } from '../../libs/services';
+import { SidebarEnum } from '../../libs/enums';
 
 @Component({
   selector: 'app-sidebar',

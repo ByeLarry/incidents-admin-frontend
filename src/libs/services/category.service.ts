@@ -1,9 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {
-  CategoryDto,
-  CategoryStatsDto,
-} from '../components/sidebar/categories/dto';
+import { CategoryDto, CategoryStatsDto } from '../../components/sidebar/categories/dto';
+
 
 @Injectable({
   providedIn: 'root',

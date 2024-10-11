@@ -4,8 +4,8 @@ import { CategoriesComponent } from '../categories/categories.component';
 import { UsersComponent } from '../users/users.component';
 import { CommonModule } from '@angular/common';
 import { PointsComponent } from '../points/points.component';
-import { SidebarService } from '../../../services/sidebar.service';
-import { SidebarEnum } from '../../../enums/sidebar.enum';
+import { SidebarService } from '../../../libs/services';
+import { SidebarEnum } from '../../../libs/enums';
 
 @Component({
   selector: 'app-panel-content',
