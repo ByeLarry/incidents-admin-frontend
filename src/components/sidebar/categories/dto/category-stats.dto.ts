@@ -1,6 +1,6 @@
 import { CountCategoryIncidentsDto } from './count-category-incidents.dto';
 
 export interface CategoryStatsDto {
-  total: string;
+  total: number;
   incidents: CountCategoryIncidentsDto[];
 }

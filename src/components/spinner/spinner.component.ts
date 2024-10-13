@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { SpinnerColorsEnum } from '../../libs/enums';
 
 @Component({
   selector: 'app-spinner',
@@ -10,4 +11,5 @@ import { Component, Input } from '@angular/core';
 })
 export class SpinnerComponent {
   @Input() growing = false;
+  @Input() color: SpinnerColorsEnum = SpinnerColorsEnum.PRIMARY;
 }

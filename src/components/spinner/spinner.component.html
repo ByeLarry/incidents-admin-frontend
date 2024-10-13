@@ -1,3 +1,6 @@
-<div [ngClass]="growing ? 'spinner-grow text-primary' : 'spinner-border text-primary'" role="status">
+<div [ngClass]="[
+        growing ? 'spinner-grow' : 'spinner-border',
+        color
+    ]" role="status">
     <span class="visually-hidden">Loading...</span>
 </div>

@@ -15,7 +15,7 @@ import { DEFAULT_TOAST_DURATION } from '../../libs/helpers';
     `,
   ],
 })
-export class ToastComponent implements OnInit {
+export class ToastComponent {
   @Input() title = 'Notification';
   @Input() message = 'This is a toast message.';
   @Input() duration = DEFAULT_TOAST_DURATION;
@@ -23,11 +23,8 @@ export class ToastComponent implements OnInit {
   isVisible = false;
   timestamp = '';
 
-  ngOnInit(): void {
-    this.timestamp = new Date().toLocaleTimeString();
-  }
-
   show() {
+    this.timestamp = new Date().toLocaleTimeString();
     this.isVisible = true;
     setTimeout(() => {
       this.closeToast();
@@ -36,5 +33,6 @@ export class ToastComponent implements OnInit {
 
   closeToast() {
     this.isVisible = false;
+    this.timestamp = '';
   }
 }

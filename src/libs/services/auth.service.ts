@@ -1,14 +1,42 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { LoginDto } from '../dto';
-import { UserDto } from '../dto/user.dto';
+import {
+  AccessTokenDto,
+  LoginDto,
+  UserAndAccessTokenDto,
+  UserDto,
+} from '../dto';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   constructor(private readonly http: HttpClient) {}
 
   login(data: LoginDto) {
-    return this.http.post<UserDto>('/api/auth/admin-login', data, {
+    return this.http.post<UserAndAccessTokenDto>(
+      '/api/auth/admin-login',
+      data,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  refreshToken() {
+    return this.http.post<AccessTokenDto>(
+      '/api/auth/refresh',
+      {},
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  logout() {
+    return this.http.post('/api/auth/logout', {}, { withCredentials: true });
+  }
+
+  getUser() {
+    return this.http.get<UserDto>('/api/auth/me', {
       withCredentials: true,
     });
   }

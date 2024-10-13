@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { LoginPageComponent } from '../pages/login-page/login-page.component';
 import { TitleResolver } from '../libs/resolvers';
+import { authGuard } from '../libs/guards';
 
 export const routes: Routes = [
   {
@@ -13,7 +14,8 @@ export const routes: Routes = [
     loadComponent: () =>
       import('../pages/panel/panel.component').then((m) => m.PanelComponent),
     resolve: { title: TitleResolver },
+    canActivate: [authGuard()],
   },
-  { path: '', redirectTo: 'panel', pathMatch: 'full' },
-  { path: '**', redirectTo: 'panel' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '**', redirectTo: 'login' },
 ];

@@ -3,27 +3,40 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5 long-text" id="updateCategoryModalLabel" >{{ category.name }}</h1>
+                <h2 class="modal-title fs-5 long-text" id="updateCategoryModalLabel">{{ category.name }}</h2>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="update-category-name">Название</span>
-                    <input type="text" class="form-control" aria-label="Sizing example input"
-                        aria-describedby="update-category-name" required [(ngModel)]="editableCategory.name"
-                        (input)="onInputChange()">
-                </div>
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="update-category-color">Цвет</span>
-                    <input type="text" class="form-control" aria-label="Sizing example input"
-                        aria-describedby="update-category-color" [(ngModel)]="editableCategory.color"
-                        (input)="onInputChange()">
-                </div>
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <span class="input-group-text" id="update-category-name">Название</span>
+                            <input type="text" formControlName="name" class="form-control"
+                                aria-label="Sizing example input" aria-describedby="update-category-name" required />
+                        </div>
+                        <ng-container *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
+                            <div class="text-danger">Название не указано</div>
+                        </ng-container>
+                    </div>
+                    <div class="mg-3">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="update-category-color">Цвет</span>
+                            <input type="text" formControlName="color" class="form-control"
+                                aria-label="Sizing example input" aria-describedby="update-category-color" />
+                        </div>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-primary" [disabled]="isButtonDisabled"
-                    (click)="onSave()">Сохранить</button>
+                <ng-container *ngIf="!isSubmitting; else loading">
+                    <button type="button" class="btn btn-primary" [disabled]="isButtonDisabled || form.invalid"
+                        (click)="onSubmit()" data-bs-dismiss="modal">Сохранить</button>
+                </ng-container>
+                <ng-template #loading>
+                    <app-spinner [color]="spinnerColor"></app-spinner>
+                </ng-template>
             </div>
         </div>
     </div>
 </div>
+<app-toast #toast></app-toast>

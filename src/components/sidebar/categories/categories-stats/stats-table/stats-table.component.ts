@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { CategoryService } from '../../../../../libs/services';
+import { Component, Input } from '@angular/core';
+import { CategoryStatsDto } from '../../dto';
 
 @Component({
   selector: 'app-stats-table',
@@ -9,7 +9,5 @@ import { CategoryService } from '../../../../../libs/services';
   templateUrl: './stats-table.component.html',
 })
 export class StatsTableComponent {
-
-  constructor(private readonly categoryService: CategoryService) {}
-  stats$ = this.categoryService.getStats();
+  @Input() stats: CategoryStatsDto | undefined;
 }

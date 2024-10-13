@@ -1,0 +1,29 @@
+<div class="modal fade" id="deleteCategoryModal" tabindex="-1" aria-labelledby="deleteCategoryModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered ">
+        <div class="modal-content bg-light">
+            <div class="modal-header">
+                <h2 class="modal-title fs-5 long-text" id="deleteCategoryModalLabel">Вы уверены, что хотите удалить
+                    выбранную
+                    категорию?</h2>
+            </div>
+            <div class="modal-body">
+                <h4 class="h4">{{category.name}}</h4>
+                <h5 class="h5">id = {{category.id}}</h5>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <div class="d-flex gap-3">
+                    @if (!submitting) {
+                    <button type="button" class="btn btn-danger" (click)="onDelete()"
+                        data-bs-dismiss="modal">Да</button>
+                    }
+                    @else {
+                    <app-spinner [color]="spinnerColor"></app-spinner>
+                    }
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Нет</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-toast #toast></app-toast>

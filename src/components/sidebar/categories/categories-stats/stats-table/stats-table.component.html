@@ -1,14 +1,14 @@
 <table class="table table-light table-striped border border-dark">
     <thead>
         <tr>
-            <th scope="col">#</th>
+            <th scope="col">id</th>
             <th scope="col">Название</th>
             <th scope="col">Количество инцидентов</th>
         </tr>
     </thead>
     <tbody>
-        <ng-container *ngIf="stats$ | async as stats">
-            <ng-container *ngFor="let stat of stats">
+        <ng-container *ngIf="stats">
+            <ng-container *ngFor="let stat of stats.incidents">
                 <ng-container *ngTemplateOutlet="statsTableRow; context: { $implicit: stat }"></ng-container>
             </ng-container>
         </ng-container>
@@ -16,7 +16,7 @@
     <tfoot>
         <tr>
             <td colspan="2">Всего</td>
-            <td>10</td>
+            <td>{{ stats?.total || 0}}</td>
         </tr>
     </tfoot>
 </table>

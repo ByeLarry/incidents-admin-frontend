@@ -14,7 +14,7 @@
         </div>
         <div class="card-body">
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">Цвет: {{ category.color }}</li>
+                <li class="list-group-item">Цвет: {{ category.color || 'Не указан'}}</li>
                 <li class="list-group-item">Дата создание: {{ category.createdAt | date: 'HH:mm dd.MM.yyyy' }}
                 </li>
                 <li class="list-group-item">Дата обновления: {{ category.updatedAt | date: 'HH:mm dd.MM.yyyy' }}</li>
@@ -23,7 +23,9 @@
                 <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#updateCategoryModal"
                     (click)="onChangeButtonClick(category)">Изменить</button>
                 <app-update-category-modal [category]="selectedCategory || category" />
-                <button class="btn btn-danger w-100">Удалить</button>
+                <button class="btn btn-danger w-100" data-bs-toggle="modal" data-bs-target="#deleteCategoryModal"
+                    (click)="onDeleteButtonClick(category)">Удалить</button>
+                <app-delete-category-modal [category]="selectedCategory || category" />
             </div>
         </div>
     </div>
