@@ -5,6 +5,7 @@ import {
   LoginDto,
   UserAndAccessTokenDto,
   UserDto,
+  UserIdDto,
 } from '../dto';
 
 @Injectable({ providedIn: 'root' })
@@ -37,6 +38,18 @@ export class AuthService {
 
   getUser() {
     return this.http.get<UserDto>('/api/auth/me', {
+      withCredentials: true,
+    });
+  }
+
+  blockUser(data: UserIdDto) {
+    return this.http.patch<UserDto>('/api/auth/block', data, {
+      withCredentials: true,
+    });
+  }
+
+  unblockUser(data: UserIdDto) {
+    return this.http.patch<UserDto>('/api/auth/unblock', data, {
       withCredentials: true,
     });
   }

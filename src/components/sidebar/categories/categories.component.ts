@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CategoriesListComponent } from './categories-list/categories-list.component';
 import { CategoryCreateComponent } from './category-create/category-create.component';
 import { CategoriesStatsComponent } from './categories-stats/categories-stats.component';
+import { SidebarEnum } from '../../../libs/enums';
+import { SIDEBAR_LOCAL_STORAGE_KEY } from '../../../libs/helpers';
 
 @Component({
   selector: 'app-categories',
@@ -12,6 +14,9 @@ import { CategoriesStatsComponent } from './categories-stats/categories-stats.co
     CategoriesStatsComponent,
   ],
   templateUrl: './categories.component.html',
-  styleUrl: './categories.component.scss',
 })
-export class CategoriesComponent {}
+export class CategoriesComponent implements OnInit {
+  ngOnInit(): void {
+    localStorage.setItem(SIDEBAR_LOCAL_STORAGE_KEY, SidebarEnum.CATEGORIES);
+  }
+}

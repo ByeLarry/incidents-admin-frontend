@@ -1,0 +1,49 @@
+<div class="card border-light">
+    <ng-container *ngIf="users$ | async as users">
+        <ng-container *ngFor="let user of users">
+            <ng-container *ngTemplateOutlet="userListItem; context: { $implicit: user }"></ng-container>
+        </ng-container>
+    </ng-container>
+</div>
+
+<ng-template #userListItem let-user>
+    <div class="card mb-4  long-text" [ngClass]="{ 'border-primary': user.roles.includes(adminRole)}">
+        <div class="card-header d-flex justify-content-between"
+            [ngClass]="{ 'border-primary': user.roles.includes(adminRole)}">
+            <h6 class="h6">{{user.name}} {{user.surname}}</h6>
+        </div>
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between">id: {{ user.id || 'Не указан'}}
+                    <button class="btn btn-outline-primary btn-sm" (click)="copyToClipboard(user.id)"><i
+                            class="bi bi-copy "></i> Копировать</button>
+                </li>
+                <li class="list-group-item">Email: {{ user.email || 'Не указан'}}</li>
+                <li class="list-group-item">Номер телефона: {{ user.phone_number || 'Не указан'}}</li>
+                <li class="list-group-item">Количество подключений: {{user.tokensCount || 0}}</li>
+                <li class="list-group-item" [ngClass]="{ 'text-primary': user.roles.includes(adminRole)}">
+                    Роли: {{ user.roles
+                    || 'Не указан'}}</li>
+                <li class="list-group-item"
+                    [ngClass]="{ 'text-success': user.activated, 'text-danger': !user.activated }">{{user.activated ?
+                    'Активирован' : 'Не активирован'}}</li>
+            </ul>
+            <div class="d-flex justify-content-end gap-3 mt-3">
+                <div *ngIf="!user.roles.includes(adminRole)">
+                    @if (user.isBlocked) {
+                    <button class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#unblockUserModal"
+                        (click)="onSelectUser(user)">Разблокировать</button>
+                    }
+                    @else {
+                    <button class="btn btn-danger w-100" data-bs-toggle="modal" data-bs-target="#blockUserModal"
+                        (click)="onSelectUser(user)">Заблокировать</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<app-block-user-modal [user]="selectedUser " />
+<app-unblock-user-modal [user]="selectedUser" />
+<app-toast #toast></app-toast>

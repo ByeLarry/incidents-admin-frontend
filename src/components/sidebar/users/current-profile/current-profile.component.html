@@ -1,0 +1,18 @@
+<div class="card mb-3">
+    <div class="card-header text-center d-flex justify-content-center">
+        <h2 class="h2">Текущий профиль</h2>
+    </div>
+    <div class="card-body">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <p class="h6">Имя: {{user()?.name || 'Не указано' }}</p>
+                </li>
+                <li class="list-group-item">
+                    <p class="h6">Фамилия: {{user()?.surname || 'Не указана'}}</p>
+                </li>
+                <li class="list-group-item">
+                    <p class="h6">Почта: {{user()?.email || 'Не указана'}}</p>
+                </li>
+            </ul>
+    </div>
+</div>

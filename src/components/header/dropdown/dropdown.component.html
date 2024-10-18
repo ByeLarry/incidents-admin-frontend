@@ -1,11 +1,14 @@
 <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="nav-link dropdown-toggle"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
         Профиль
-    </a>
+    </span>
     <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Создать пользователя</a></li>
         <li>
-            <button class="dropdown-item">Редактировать пользователя
+            <button class="dropdown-item">Добавить администратора
+            </button>
+        </li>
+        <li>
+            <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#updateCurrentUserModal">Редактировать
             </button>
         </li>
         <li>
@@ -17,3 +20,4 @@
 </li>
 
 <app-logout-modal></app-logout-modal>
+<app-update-current-user [user]="user() || undefined"/>

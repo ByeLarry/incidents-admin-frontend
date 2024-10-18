@@ -1,14 +1,15 @@
-<div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+<div class="modal fade" id="unblockUserModal" tabindex="-1" aria-labelledby="unblockUserModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered ">
         <div class="modal-content bg-light border-black">
             <div class="modal-header">
-                <h2 class="modal-title fs-5 long-text" id="logoutModalLabel">Вы уверены, что хотите выйти?</h2>
+                <h4 class="modal-title fs-5 long-text" id="unblockUserModalLabel">Вы уверены, что хотите разблокировать
+                    выбранного пользователя?</h4>
             </div>
             <div class="modal-body">
                 <div class="d-flex justify-content-center">
                     <div class="d-flex gap-3">
                         @if (!submitting) {
-                        <button type="button" class="btn btn-success" (click)="onLogout()"
+                        <button type="button" class="btn btn-success" (click)="onUnbLock()"
                             data-bs-dismiss="modal">Да</button>
                         }
                         @else {
