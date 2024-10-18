@@ -4,7 +4,6 @@ import {
   Component,
   Input,
   OnChanges,
-  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import {
@@ -61,8 +60,7 @@ export class UpdateCurrentUserComponent implements AfterViewInit, OnChanges {
     });
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes)
+  ngOnChanges(): void {
     this.form.patchValue({
       name: this.user?.name,
       surname: this.user?.surname,
