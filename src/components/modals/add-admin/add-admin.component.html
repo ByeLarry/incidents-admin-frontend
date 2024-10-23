@@ -1,0 +1,36 @@
+<div class="modal fade" id="addAdminModal" tabindex="-1" aria-labelledby="addAdminModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered ">
+        <div class="modal-content bg-light">
+            <div class="modal-header">
+                <h2 class="modal-title fs-5 long-text" id="addAdminModalLabel">Добавление администратора</h2>
+                <button type="button" class="btn-close" style="filter: none;" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div class="modal-body">
+                    <p>Введите UID пользователя, чтобы предоставить ему права администратора.</p>
+                    <div class="mb-3">
+                        <div class="mb-3">
+                            <label for="inputAddAdminId" class="form-label">UID</label>
+                            <input type="text" class="form-control  bg-light text-black" id="inputAddAdminId"
+                                formControlName="id" required />
+                            <ng-container *ngIf="form.get('id')?.invalid && form.get('id')?.touched">
+                                <div class="text-danger">UID не введен</div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <ng-container *ngIf="!submitting; else loading">
+                        <button type="button" class="btn btn-success" [disabled]="form.invalid" (click)="onSubmit()"
+                            data-bs-dismiss="modal">Сохранить</button>
+                    </ng-container>
+                    <ng-template #loading>
+                        <app-spinner [color]="spinnerColor"></app-spinner>
+                    </ng-template>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<app-toast #toast></app-toast>

@@ -1,18 +1,29 @@
-<div class="card mb-3">
+<div class="card">
     <div class="card-header text-center d-flex justify-content-center">
         <h2 class="h2">Текущий профиль</h2>
     </div>
     <div class="card-body">
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                    <p class="h6">Имя: {{user()?.name || 'Не указано' }}</p>
-                </li>
-                <li class="list-group-item">
-                    <p class="h6">Фамилия: {{user()?.surname || 'Не указана'}}</p>
-                </li>
-                <li class="list-group-item">
-                    <p class="h6">Почта: {{user()?.email || 'Не указана'}}</p>
-                </li>
-            </ul>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <p class="h6">Имя: {{user()?.name || 'Не указано' }}</p>
+            </li>
+            <li class="list-group-item">
+                <p class="h6">Фамилия: {{user()?.surname || 'Не указана'}}</p>
+            </li>
+            <li class="list-group-item">
+                <p class="h6">Почта: {{user()?.email || 'Не указана'}}</p>
+            </li>
+        </ul>
+    </div>
+    <div class="card-footer d-flex justify-content-end gap-3">
+        <button class="btn btn-primary" data-bs-toggle="modal" title="Редактировать" aria-label="Редактировать"
+            data-bs-target="#updateCurrentUserModal">
+            <i class="bi bi-pencil-square"></i>
+        </button>
+
+        <button class="btn btn-dark" data-bs-toggle="modal" title="Выйти" aria-label="Выйти"
+            data-bs-target="#logoutModal">
+            <i class="bi bi-box-arrow-right"></i>
+        </button>
     </div>
 </div>

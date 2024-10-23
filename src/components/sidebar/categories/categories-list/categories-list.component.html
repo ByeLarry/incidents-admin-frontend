@@ -7,8 +7,8 @@
 </div>
 
 <ng-template #categoryListItem let-category>
-    <div class="card mb-4 border-primary">
-        <div class="card-header d-flex justify-content-between border-primary">
+    <div class="card mb-3">
+        <div class="card-header d-flex justify-content-between">
             <h4 class="h4">{{ category.name }}</h4>
             <h6 class="h6">id: {{ category.id }}</h6>
         </div>
@@ -19,12 +19,12 @@
                 </li>
                 <li class="list-group-item">Дата обновления: {{ category.updatedAt | date: 'HH:mm dd.MM.yyyy' }}</li>
             </ul>
-            <div class="d-flex gap-3 mt-3">
-                <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#updateCategoryModal"
-                    (click)="onChangeButtonClick(category)">Изменить</button>
+            <div class="d-flex justify-content-end gap-2">
+                <button class="btn btn-primary" data-bs-toggle="modal" aria-label="Изменить" title="Изменить" data-bs-target="#updateCategoryModal"
+                    (click)="onChangeButtonClick(category)"><i class="bi bi-pencil-square"></i></button>
                 <app-update-category-modal [category]="selectedCategory || category" />
-                <button class="btn btn-danger w-100" data-bs-toggle="modal" data-bs-target="#deleteCategoryModal"
-                    (click)="onDeleteButtonClick(category)">Удалить</button>
+                <button class="btn btn-danger" data-bs-toggle="modal" aria-label="Удалить" title="Удалить" data-bs-target="#deleteCategoryModal"
+                    (click)="onDeleteButtonClick(category)"><i class="bi bi-trash"></i></button>
                 <app-delete-category-modal [category]="selectedCategory || category" />
             </div>
         </div>

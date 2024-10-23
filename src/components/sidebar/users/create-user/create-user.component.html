@@ -1,0 +1,68 @@
+<div class="card">
+    <div class="card-header text-center">
+        <h2 class="h2">Создание пользователя</h2>
+    </div>
+    <div class="card-body">
+        <div class="alert alert-info" role="alert">
+            <i>При создании пользователя используется локальная стратегия аутентификации.</i>
+        </div>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+                <label for="inpCreateUserName" class="form-label">Имя</label>
+                <input type="text" formControlName="name" required class="form-control" id="inpCreateUserName"
+                    aria-describedby="inpCreateUserName">
+                <ng-container *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
+                    <div class="text-danger">Минимальная длина 3 символа</div>
+                </ng-container>
+            </div>
+
+            <div class="mb-3">
+                <label for="inpCreateUserSurname" class="form-label">Фамилия</label>
+                <input type="text" formControlName="surname" required class="form-control" id="inpCreateUserSurname"
+                    aria-describedby="inpCreateUserSurname">
+                <ng-container *ngIf="form.get('surname')?.invalid && form.get('surname')?.touched">
+                    <div class="text-danger">Минимальная длина 3 символа</div>
+                </ng-container>
+            </div>
+
+            <div class="mb-3">
+                <label for="inpCreateUserEmail" class="form-label">Почта</label>
+                <input type="text" formControlName="email" required class="form-control" id="inpCreateUserEmail"
+                    aria-describedby="inpCreateUserEmail">
+                <ng-container *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
+                    <div class="text-danger">Некорректная почта</div>
+                </ng-container>
+            </div>
+
+            <div class="mb-3">
+                <label for="inpCreateUserPassword" class="form-label">Пароль</label>
+                <input type="password" formControlName="password" required class="form-control"
+                    id="inpCreateUserPassword" aria-describedby="inpCreateUserPassword">
+                <ng-container *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+                    <div class="text-danger">Минимальная длина 8 символов</div>
+                </ng-container>
+            </div>
+
+            <div class="mb-3">
+                <label for="inpCreateUserConfirmPassword" class="form-label">Подтверждение пароля</label>
+                <input type="password" formControlName="confirmPassword" required class="form-control"
+                    id="inpCreateUserConfirmPassword" aria-describedby="inpCreateUserConfirmPassword">
+                <ng-container *ngIf="form.hasError('mustMatch') && 
+                    !form.controls['confirmPassword'].hasError('required')">
+                    <div class="text-danger">Пароли не совпадают</div>
+                </ng-container>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                @if (!isSubmitting) {
+                <button type="submit" class="btn btn-success" [disabled]="form.invalid">Создать</button>
+                }
+                @else {
+                <app-spinner [color]="spinnerColor"></app-spinner>
+                }
+            </div>
+        </form>
+    </div>
+</div>
+
+<app-toast #toast></app-toast>

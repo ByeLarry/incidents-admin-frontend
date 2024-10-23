@@ -8,6 +8,8 @@ export interface UserDto {
   phone_number?: string;
   activated: boolean;
   isBlocked: boolean;
+  createdAt: Date;
+  updatedAt: Date;
   roles: RolesEnum[];
   provider: AuthProvidersEnum;
   tokensCount?: number;

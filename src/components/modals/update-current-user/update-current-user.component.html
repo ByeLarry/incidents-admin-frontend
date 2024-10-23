@@ -1,18 +1,19 @@
-<div class="modal  fade" id="updateCurrentUserModal" data-bs-backdrop="static" tabindex="-1"
+<div class="modal fade" id="updateCurrentUserModal" data-bs-theme='light' data-bs-backdrop="static" tabindex="-1"
     aria-labelledby="updateCurrentUserModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content bg-light border-black">
+        <div class="modal-content">
             <div class="modal-header">
                 <h2 class="modal-title fs-5 long-text" id="updateCurrentUserModalLabel">Редактирование профиля</h2>
-                <button type="button" class="btn-close  bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" style="filter: none;" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form [formGroup]="form" (ngSubmit)="onSubmit()">
                     <div class="mb-3">
                         <div class="mb-3">
                             <label for="inputUpdateUserName" class="form-label">Имя</label>
-                            <input type="text" class="form-control  bg-light text-black" id="inputUpdateUserName"
-                                formControlName="name" aria-describedby="emailHelp" required />
+                            <input type="text" class="form-control" id="inputUpdateUserName" formControlName="name"
+                                aria-describedby="emailHelp" required />
                             <ng-container *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
                                 <div class="text-danger">Минимальная длина имени 3 символа</div>
                             </ng-container>
@@ -20,8 +21,8 @@
 
                         <div class="mb-3">
                             <label for="inputUpdateUserSurame" class="form-label">Фамилия</label>
-                            <input type="text" class="form-control  bg-light text-black" id="inputUpdateUserSurame"
-                                formControlName="surname" aria-describedby="emailHelp" required />
+                            <input type="text" class="form-control" id="inputUpdateUserSurame" formControlName="surname"
+                                aria-describedby="emailHelp" required />
                             <ng-container *ngIf="form.get('surname')?.invalid && form.get('surname')?.touched">
                                 <div class="text-danger">Минимальная длина фамилии 3 символа</div>
                             </ng-container>
@@ -29,8 +30,8 @@
 
                         <div class="mb-3">
                             <label for="inputUpdateUserEmail" class="form-label">Почта</label>
-                            <input type="text" class="form-control  bg-light text-black" id="inputUpdateUserEmail"
-                                formControlName="email" aria-describedby="emailHelp" required />
+                            <input type="text" class="form-control" id="inputUpdateUserEmail" formControlName="email"
+                                aria-describedby="emailHelp" required />
                             <ng-container *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
                                 <div class="text-danger">Некорректная почта</div>
                             </ng-container>
@@ -38,7 +39,7 @@
 
                         <div class="mb-3">
                             <label for="inputUpdatePhoneNumber" class="form-label">Номер телефона</label>
-                            <input type="text" class="form-control  bg-light text-black" id="inputUpdatePhoneNumber"
+                            <input type="text" class="form-control" id="inputUpdatePhoneNumber"
                                 formControlName="phone_number" aria-describedby="emailHelp" required />
                             <ng-container
                                 *ngIf="form.get('phone_number')?.invalid && form.get('phone_number')?.touched">
@@ -50,8 +51,8 @@
             </div>
             <div class="modal-footer justify-content-center">
                 <ng-container *ngIf="!isSubmitting; else loading">
-                    <button type="button" class="btn btn-primary" [disabled]="form.invalid || isButtonDisabled" (click)="onSubmit()"
-                        data-bs-dismiss="modal">Сохранить</button>
+                    <button type="button" class="btn btn-primary" [disabled]="form.invalid || isButtonDisabled"
+                        (click)="onSubmit()" data-bs-dismiss="modal">Сохранить</button>
                 </ng-container>
                 <ng-template #loading>
                     <app-spinner [color]="spinnerColor"></app-spinner>

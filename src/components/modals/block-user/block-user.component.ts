@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
 import {
-  AllUsersService,
   AuthService,
   ToastService,
+  UserListService,
 } from '../../../libs/services';
 import { SpinnerComponent } from '../../spinner/spinner.component';
 import { ToastComponent } from '../../toast/toast.component';
@@ -26,7 +26,7 @@ export class BlockUserModalComponent implements AfterViewInit {
   constructor(
     private readonly authService: AuthService,
     private readonly toastService: ToastService,
-    private readonly allUsersService: AllUsersService
+    private readonly userListService: UserListService
   ) {}
 
   ngAfterViewInit(): void {
@@ -39,7 +39,7 @@ export class BlockUserModalComponent implements AfterViewInit {
       .blockUser({ id: this.user!.id })
       .subscribe({
         next: () => {
-          this.allUsersService.refetch();
+          this.userListService.refetch();
         },
         error: () => {
           this.toastService.showToast(

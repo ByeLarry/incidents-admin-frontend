@@ -1,24 +1,22 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { StatsTableComponent } from './stats-table/stats-table.component';
 import { ToastComponent } from '../../../toast/toast.component';
-import { CategoryService, ToastService } from '../../../../libs/services';
-import { CategoryStatsDto } from '../dto';
 import { CommonModule } from '@angular/common';
+import { ToastService, UserService } from '../../../../libs/services';
+import { UsersStatsDto } from '../../../../libs/dto';
 
 @Component({
-  selector: 'app-categories-stats',
+  selector: 'app-users-stats',
   standalone: true,
-  imports: [StatsTableComponent, ToastComponent, CommonModule],
-  templateUrl: './categories-stats.component.html',
+  imports: [ToastComponent, CommonModule],
+  templateUrl: './users-stats.component.html',
 })
-export class CategoriesStatsComponent implements AfterViewInit {
+export class UsersStatsComponent implements AfterViewInit {
   @ViewChild('toast') toastComponent!: ToastComponent;
-  stats?: CategoryStatsDto;
-  categoriesCount = 0;
+  stats?: UsersStatsDto;
 
   constructor(
-    private readonly categoryService: CategoryService,
-    private readonly toastService: ToastService
+    private readonly toastService: ToastService,
+    private readonly userService: UserService
   ) {}
 
   ngAfterViewInit(): void {
@@ -32,10 +30,9 @@ export class CategoriesStatsComponent implements AfterViewInit {
   }
 
   private updateStats() {
-    this.categoryService.getStats().subscribe({
+    this.userService.getStats().subscribe({
       next: (stats) => {
         this.stats = stats;
-        this.categoriesCount = this.categoryService.getCategoriesLength();
       },
       error: () => {
         this.toastService.showToast(

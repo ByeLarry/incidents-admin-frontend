@@ -40,7 +40,6 @@ export class DeleteCategoryModalComponent implements AfterViewInit, OnChanges {
 
   onDelete() {
     this.submitting = true;
-    this.submitting = false;
     this.categoryService
       .delete({ id: this.category.id })
       .subscribe({

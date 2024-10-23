@@ -1,6 +1,6 @@
-<div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+<div class="modal fade" id="logoutModal" tabindex="-1" data-bs-theme='light' aria-labelledby="logoutModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered ">
-        <div class="modal-content bg-light border-black">
+        <div class="modal-content">
             <div class="modal-header">
                 <h2 class="modal-title fs-5 long-text" id="logoutModalLabel">Вы уверены, что хотите выйти?</h2>
             </div>
@@ -8,13 +8,13 @@
                 <div class="d-flex justify-content-center">
                     <div class="d-flex gap-3">
                         @if (!submitting) {
-                        <button type="button" class="btn btn-success" (click)="onLogout()"
+                        <button type="button" class="btn btn-dark" (click)="onLogout()"
                             data-bs-dismiss="modal">Да</button>
                         }
                         @else {
                         <app-spinner [color]="spinnerColor"></app-spinner>
                         }
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Нет</button>
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Нет</button>
                     </div>
                 </div>
             </div>

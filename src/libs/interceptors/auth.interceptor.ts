@@ -6,6 +6,7 @@ import {
   HttpHandler,
   HttpRequest,
   HttpErrorResponse,
+  HttpStatusCode,
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
@@ -34,13 +35,13 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
         if (
-          error.status === 401 &&
+          error.status === HttpStatusCode.Unauthorized &&
           !req.url.includes('api/auth/refresh') &&
           accessToken
         ) {
           return this.handle401Error(req, next);
         }
-        return throwError(() => new Error(error.message || 'Unknown error'));
+        return throwError(() => error);
       })
     );
   }

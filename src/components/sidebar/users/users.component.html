@@ -1,13 +1,14 @@
-<main class="container">
-
-    <div class="row mb-3">
+<main class="container d-flex flex-column gap-3 ">
+    <div class="row ">
         <div class="col text-center">
             <h1 class="h1">Пользователи</h1>
         </div>
     </div>
-    <div class="row mb-3">
-        <div class="col-md-6 d-flex flex-column gap-4">
+    <div class="row ">
+        <div class="col-md-6 d-flex flex-column gap-3">
             <app-current-profile />
+            <app-create-user />
+            <app-users-stats />
         </div>
         <div class="col-md-6">
             <app-users-list />

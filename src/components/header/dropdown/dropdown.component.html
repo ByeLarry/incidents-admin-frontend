@@ -1,10 +1,10 @@
 <li class="nav-item dropdown">
-    <span class="nav-link dropdown-toggle"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         Профиль
     </span>
-    <ul class="dropdown-menu">
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdown" data-bs-theme="dark">
         <li>
-            <button class="dropdown-item">Добавить администратора
+            <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#addAdminModal">Добавить администратора
             </button>
         </li>
         <li>
@@ -20,4 +20,5 @@
 </li>
 
 <app-logout-modal></app-logout-modal>
-<app-update-current-user [user]="user() || undefined"/>
+<app-add-admin-modal></app-add-admin-modal>
+<app-update-current-user [user]="user() || undefined" />

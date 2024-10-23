@@ -4,3 +4,7 @@ export * from './access-token.dto';
 export * from './user-and-access-token.dto';
 export * from './user-id.dto';
 export * from './update-current-user.dto';
+export * from './create-user.dto';
+export * from './add-admin.dto';
+export * from './users-stats.dto';
+export * from './users-via-pagination.dto';
