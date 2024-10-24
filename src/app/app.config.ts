@@ -8,6 +8,8 @@ import {
   withInterceptorsFromDi,
 } from '@angular/common/http';
 import { BaseUrlInterceptor, AuthInterceptor } from '../libs/interceptors';
+import { provideYConfig } from 'angular-yandex-maps-v3';
+import { YMAP_CONFIG } from '../libs/helpers';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -23,5 +25,6 @@ export const appConfig: ApplicationConfig = {
       useClass: AuthInterceptor,
       multi: true,
     },
+    provideYConfig(YMAP_CONFIG)
   ],
 };

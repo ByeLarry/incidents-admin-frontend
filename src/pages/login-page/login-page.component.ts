@@ -4,7 +4,7 @@ import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { SpinnerComponent } from '../../components/spinner/spinner.component';
 import { ACCESS_TOKEN_KEY } from '../../libs/helpers';
 import { AuthService, UserService } from '../../libs/services';
-import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-home-page',
@@ -18,7 +18,7 @@ export class LoginPageComponent implements OnInit {
   constructor(
     private readonly authService: AuthService,
     private readonly userService: UserService,
-    private readonly router: Router
+    private readonly location: Location
   ) {}
 
   ngOnInit(): void {
@@ -29,7 +29,7 @@ export class LoginPageComponent implements OnInit {
         .subscribe({
           next: (user) => {
             this.userService.setUser(user);
-            this.router.navigate(['/panel']);
+            this.location.back()
           },
           error: () => {
             this.gettingUser = false;

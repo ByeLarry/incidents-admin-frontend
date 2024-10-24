@@ -16,6 +16,14 @@ export const routes: Routes = [
     resolve: { title: TitleResolver },
     canActivate: [authGuard()],
   },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+
+  {
+    path: 'map',
+    loadComponent: () =>
+      import('../pages/map/map-page.component').then((m) => m.MapPageComponent),
+    resolve: { title: TitleResolver },
+    canActivate: [authGuard()],
+  },
+  { path: '', redirectTo: 'panel', pathMatch: 'full' },
   { path: '**', redirectTo: 'login' },
 ];

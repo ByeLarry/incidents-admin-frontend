@@ -1,0 +1,45 @@
+<div class="modal fade" id="incidentModal" tabindex="-1" aria-labelledby="incidentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title fs-5 long-text" id="incidentModalLabel">{{ selectedIncident?.title }}</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between">id: {{ selectedIncident?.id }}<button
+                            class="btn btn-outline-primary btn-sm" aria-label="Скопировать" title="Скопировать"
+                            (click)="copyToClipboard(selectedIncident?.userId)"><i class="bi bi-copy "></i></button>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">userId: {{ selectedIncident?.userId }}
+                        <button class="btn btn-outline-primary btn-sm" aria-label="Скопировать" title="Скопировать"
+                            (click)="copyToClipboard(selectedIncident?.userId)"><i class="bi bi-copy "></i></button>
+                    </li>
+                    <li class="list-group-item">Создано: {{ selectedIncident?.createdAt | date: 'HH:mm dd.MM.yyyy' }}
+                    </li>
+                    <li class="list-group-item">Обновлено: {{ selectedIncident?.updatedAt | date: 'HH:mm dd.MM.yyyy'}}
+                    </li>
+                    <li class="list-group-item">Категория: {{ selectedIncident?.category?.name }}
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item ms-3 d-flex justify-content-between">id: {{
+                                selectedIncident?.category?.id }}</li>
+                            <li class="list-group-item ms-3">Цвет: {{ selectedIncident?.category?.color }}</li>
+                        </ul>
+                    </li>
+                    <li class="list-group-item">Адрес: {{selectedIncident?.addressDescription}} {{
+                        selectedIncident?.addressName }}</li>
+                    <li class="list-group-item">Подтверждений: {{ selectedIncident?.verified }}</li>
+                    <li class="list-group-item">Дистанция: {{ selectedIncident?.distance | distance }}</li>
+                    <li class="list-group-item">Описание: {{ selectedIncident?.description }}</li>
+                </ul>
+            </div>
+            <div class="modal-footer justify-content-center">
+
+                <ng-template #loading>
+                    <app-spinner [color]="spinnerColor"></app-spinner>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>
+<app-toast #toast></app-toast>

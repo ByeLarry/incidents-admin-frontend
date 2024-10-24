@@ -1,0 +1,22 @@
+<div class="map-wrapper">
+    <y-map [props]="mapProps">
+        <y-map-default-scheme-layer />
+        <y-map-default-features-layer />
+        <app-map-controls />
+        <y-map-clusterer [props]="{ features: points}">
+            <ng-template #marker let-context>
+                <button (click)="onMarkerClick(context)" class="marker-wrapper" data-bs-toggle="modal"
+                    data-bs-target="#incidentModal">
+                    <i class="bi bi-geo-alt-fill text-danger incident-marker"></i>
+                </button>
+            </ng-template>
+            <ng-template #cluster let-context>
+                <span class="cluster-marker">
+                    {{ context.features.length }}
+                </span>
+            </ng-template>
+        </y-map-clusterer>
+    </y-map>
+</div>
+
+<app-incident-modal [incidentFeature]="selectedPoint"></app-incident-modal>
