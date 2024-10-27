@@ -3,18 +3,16 @@
         <h2 class="h2">Опции</h2>
     </div>
     <div class="card-body">
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-                <!-- <p class="h5">Всего категорий: {{categoriesCount}}</p> -->
-            </li>
-        </ul>
-        <!-- <app-stats-table [stats]="stats" /> -->
-    </div>
-    <div class="card-footer d-flex justify-content-end">
-        <a class="btn btn-success" title="Открыть карту" aria-label="Открыть карту" [routerLink]="['/map']">
-            <i class="bi bi-pin-map"></i>
-        </a>
+        <div class="alert alert-success d-flex align-items-center" role="alert">
+            <i class="bi bi-info-circle flex-shrink-0 me-2"></i>
+            Вы можете открыть карту, чтобы посмотреть все происшествия.
+        </div>
+        <div class="d-flex justify-content-evenly" role=" group" aria-label="Опции">
+            <button class="btn btn-success" type="button" [ngbTooltip]="'Открыть карту'" placement="bottom"
+                aria-label="Открыть карту" [routerLink]="['/map']">
+                <i class="bi bi-pin-map"></i>
+            </button>
+
+        </div>
     </div>
 </div>
-
-<!-- <app-toast #toast></app-toast> -->

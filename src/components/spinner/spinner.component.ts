@@ -7,7 +7,6 @@ import { SpinnerColorsEnum } from '../../libs/enums';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './spinner.component.html',
-  styleUrl: './spinner.component.scss',
 })
 export class SpinnerComponent {
   @Input() growing = false;

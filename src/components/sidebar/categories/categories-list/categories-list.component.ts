@@ -5,6 +5,7 @@ import { CategoryDto } from '../dto';
 import { CategoryService } from '../../../../libs/services';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { DeleteCategoryModalComponent } from '../../../modals/delete-category/delete-category.component';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-categories-list',
@@ -13,6 +14,7 @@ import { DeleteCategoryModalComponent } from '../../../modals/delete-category/de
     CommonModule,
     UpdateCategoryModalComponent,
     DeleteCategoryModalComponent,
+    NgbTooltipModule,
   ],
   templateUrl: './categories-list.component.html',
 })

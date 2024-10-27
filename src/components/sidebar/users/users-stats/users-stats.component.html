@@ -22,7 +22,7 @@
         </ul>
     </div>
     <div class="card-footer d-flex justify-content-end">
-        <button class="btn btn-secondary" title="Обновить" (click)="onRefreshClick()">
+        <button class="btn btn-secondary" [ngbTooltip]="'Обновить'" placement="top" (click)="onRefreshClick()">
             <i class="bi bi-arrow-counterclockwise"></i>
         </button>
     </div>

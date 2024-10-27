@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { CategoryStatsDto } from '../../dto';
+import { CategoryStatsDto } from '../../categories/dto';
 
 @Component({
-  selector: 'app-stats-table',
+  selector: 'app-incidents-stats-table',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './stats-table.component.html',
 })
-export class StatsTableComponent {
+export class IncidentsStatsTableComponent {
   @Input() stats: CategoryStatsDto | undefined;
 }

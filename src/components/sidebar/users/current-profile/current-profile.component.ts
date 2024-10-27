@@ -3,11 +3,12 @@ import { UserService } from '../../../../libs/services';
 import { CommonModule } from '@angular/common';
 import { UserDto } from '../../../../libs/dto';
 import { LogoutModalComponent } from '../../../modals/logout/logout.components';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-current-profile',
   standalone: true,
-  imports: [CommonModule, LogoutModalComponent],
+  imports: [CommonModule, LogoutModalComponent, NgbTooltipModule],
   templateUrl: './current-profile.component.html',
 })
 export class CurrentProfileComponent implements OnInit {

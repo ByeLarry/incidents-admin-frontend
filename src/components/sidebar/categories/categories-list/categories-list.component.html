@@ -20,11 +20,13 @@
                 <li class="list-group-item">Дата обновления: {{ category.updatedAt | date: 'HH:mm dd.MM.yyyy' }}</li>
             </ul>
             <div class="d-flex justify-content-end gap-2">
-                <button class="btn btn-primary" data-bs-toggle="modal" aria-label="Изменить" title="Изменить" data-bs-target="#updateCategoryModal"
-                    (click)="onChangeButtonClick(category)"><i class="bi bi-pencil-square"></i></button>
+                <button class="btn btn-primary" data-bs-toggle="modal" aria-label="Изменить" [ngbTooltip]="'Изменить'"
+                    placement="bottom" data-bs-target="#updateCategoryModal" (click)="onChangeButtonClick(category)"><i
+                        class="bi bi-pencil-square"></i></button>
                 <app-update-category-modal [category]="selectedCategory || category" />
-                <button class="btn btn-danger" data-bs-toggle="modal" aria-label="Удалить" title="Удалить" data-bs-target="#deleteCategoryModal"
-                    (click)="onDeleteButtonClick(category)"><i class="bi bi-trash"></i></button>
+                <button class="btn btn-danger" data-bs-toggle="modal" aria-label="Удалить" [ngbTooltip]="'Удалить'"
+                    placement="bottom" data-bs-target="#deleteCategoryModal" (click)="onDeleteButtonClick(category)"><i
+                        class="bi bi-trash"></i></button>
                 <app-delete-category-modal [category]="selectedCategory || category" />
             </div>
         </div>

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoriesListComponent } from './categories-list/categories-list.component';
 import { CategoryCreateComponent } from './category-create/category-create.component';
-import { CategoriesStatsComponent } from './categories-stats/categories-stats.component';
 import { SidebarEnum } from '../../../libs/enums';
 import { SIDEBAR_LOCAL_STORAGE_KEY } from '../../../libs/helpers';
+import { IncidentsStatsComponent } from '../incidents-stats/incidents-stats.component';
 
 @Component({
   selector: 'app-categories',
@@ -11,7 +11,7 @@ import { SIDEBAR_LOCAL_STORAGE_KEY } from '../../../libs/helpers';
   imports: [
     CategoriesListComponent,
     CategoryCreateComponent,
-    CategoriesStatsComponent,
+    IncidentsStatsComponent,
   ],
   templateUrl: './categories.component.html',
 })

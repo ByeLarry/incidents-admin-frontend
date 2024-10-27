@@ -1,18 +1,33 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, signal } from '@angular/core';
+import { Injectable, OnDestroy, signal } from '@angular/core';
 import { Feature } from '@yandex/ymaps3-types/packages/clusterer';
 import { toObservable } from '@angular/core/rxjs-interop';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { MarkDto, MarkRecvDto } from '../dto';
+import { WebSocketService } from './web-socket.service';
+import { MsgEnum } from '../enums';
 
 @Injectable({
   providedIn: 'root',
 })
-export class PointsService {
+export class PointsService implements OnDestroy {
   points = signal<Feature[]>([]);
+  private subscriptions: Subscription[] = [];
 
-  constructor(private readonly http: HttpClient) {
+  constructor(
+    private readonly http: HttpClient,
+    private readonly socket: WebSocketService
+  ) {
     this.refetch();
+    const markAddedSubscription = this.socket
+      .onEvent<Feature>(MsgEnum.NEW_MARK)
+      .subscribe((newMark) => this.points.update((prev) => [...prev, newMark]));
+
+    this.subscriptions.push(markAddedSubscription);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((s) => s.unsubscribe());
   }
 
   private getAllPoints() {
@@ -40,5 +55,11 @@ export class PointsService {
       `/api/marks/one?markId=${data.markId}&userId=${data.userId}&lng=${data.lng}&lat=${data.lat}`,
       {}
     );
+  }
+
+  deletePointById(id: number) {
+    return this.http.delete(`/api/marks/${id}`, {
+      withCredentials: true,
+    });
   }
 }

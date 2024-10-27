@@ -7,12 +7,12 @@ import { Feature } from '@yandex/ymaps3-types/packages/clusterer';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { PointsService } from '../../../libs/services';
 import { PointsOptionsComponent } from './points-options/points-options.component';
-import { PointsStatsComponent } from './points-stats/points-stats.component';
+import { IncidentsStatsComponent } from '../incidents-stats/incidents-stats.component';
 
 @Component({
   selector: 'app-points',
   standalone: true,
-  imports: [MapComponent, PointsOptionsComponent, PointsStatsComponent],
+  imports: [MapComponent, PointsOptionsComponent, IncidentsStatsComponent],
   templateUrl: './points.component.html',
 })
 export class PointsComponent implements OnInit {

@@ -5,13 +5,17 @@
     <div class="card-body">
         <ul class="list-group list-group-flush">
             <li class="list-group-item">
-                <p class="h5">Всего происшествий: 5</p>
+                <p *ngIf="withCategoriesTotal" class="h5">Всего категорий: {{categoriesCount}}</p>
+                <p *ngIf="withPointsTotal" class="h5">Всего происшествий: {{pointsCount}}</p>
             </li>
         </ul>
+        <app-incidents-stats-table [stats]="stats" />
     </div>
     <div class="card-footer d-flex justify-content-end">
-        <button class="btn btn-secondary" title="Обновить" (click)="onRefreshClick()">
+        <button class="btn btn-secondary" [ngbTooltip]="'Обновить'" placement="bottom" (click)="onRefreshClick()">
             <i class="bi bi-arrow-counterclockwise"></i>
         </button>
     </div>
 </div>
+
+<app-toast #toast></app-toast>

@@ -16,12 +16,12 @@
         </ul>
     </div>
     <div class="card-footer d-flex justify-content-end gap-3">
-        <button class="btn btn-primary" data-bs-toggle="modal" title="Редактировать" aria-label="Редактировать"
+        <button class="btn btn-primary" data-bs-toggle="modal" [ngbTooltip]="'Редактировать'" placement="bottom" aria-label="Редактировать"
             data-bs-target="#updateCurrentUserModal">
             <i class="bi bi-pencil-square"></i>
         </button>
 
-        <button class="btn btn-dark" data-bs-toggle="modal" title="Выйти" aria-label="Выйти"
+        <button class="btn btn-dark" data-bs-toggle="modal" [ngbTooltip]="'Выйти'" placement="bottom"  aria-label="Выйти"
             data-bs-target="#logoutModal">
             <i class="bi bi-box-arrow-right"></i>
         </button>

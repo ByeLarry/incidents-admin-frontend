@@ -8,6 +8,7 @@ import { BlockUserModalComponent } from '../../../modals/block-user/block-user.c
 import { UnblockUserModalComponent } from '../../../modals/unblock-user/unblock-user.component';
 import { DeleteUserModalComponent } from '../../../modals/delete-user/delete-user.component';
 import { UsersPaginationComponent } from './users-pagination/users-pagination.component';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-users-list',
@@ -19,6 +20,7 @@ import { UsersPaginationComponent } from './users-pagination/users-pagination.co
     UnblockUserModalComponent,
     DeleteUserModalComponent,
     UsersPaginationComponent,
+    NgbTooltipModule,
   ],
   templateUrl: './users-list.component.html',
 })

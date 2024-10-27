@@ -4,14 +4,25 @@
     </div>
     <div class="card-body p-3">
         <ng-container *ngIf="users$ | async as users">
+            @if(users.length === 0) {
+            <div class="d-flex justify-content-center ">
+                <h6>Пусто!</h6>
+            </div>
+            }
+            @else {
             <ng-container *ngFor="let user of users">
                 <ng-container *ngTemplateOutlet="userListItem; context: { $implicit: user }"></ng-container>
             </ng-container>
+            }
         </ng-container>
     </div>
-    <div class="card-footer">
-        <app-users-pagination />
-    </div>
+    <ng-container *ngIf="users$ | async as users">
+        @if (users.length !== 0) {
+        <div class="card-footer">
+            <app-users-pagination />
+        </div>
+        }
+    </ng-container>
 </div>
 
 <ng-template #userListItem let-user>
@@ -23,8 +34,9 @@
         <div class="card-body">
             <ul class="list-group list-group-flush">
                 <li class="list-group-item d-flex justify-content-between">id: {{ user.id || 'Не указан'}}
-                    <button class="btn btn-outline-primary btn-sm" aria-label="Скопировать ID" title="Скопировать ID"
-                        (click)="copyToClipboard(user.id)"><i class="bi bi-copy "></i></button>
+                    <button class="btn btn-outline-primary btn-sm" aria-label="Скопировать ID"
+                        [ngbTooltip]="'Скопировать ID'" placement="bottom" (click)="copyToClipboard(user.id)"><i
+                            class="bi bi-copy "></i></button>
                 </li>
                 <li class="list-group-item">Email: {{ user.email || 'Не указан'}}</li>
                 <li class="list-group-item">Дата создания: {{ (user.createdAt | date: 'HH:mm dd.MM.yyyy') || 'Не
@@ -43,18 +55,19 @@
             <div class="d-flex justify-content-end gap-3 mt-3">
                 <div *ngIf="!user.roles.includes(adminRole)" class="d-flex gap-3">
                     @if (user.isBlocked) {
-                    <button class="btn btn-success" data-bs-toggle="modal" title="Разблокировать"
-                        aria-label="Разблокировать" data-bs-target="#unblockUserModal" (click)="onSelectUser(user)"><i
-                            class="bi bi-ban"></i></button>
+                    <button class="btn btn-success" data-bs-toggle="modal" [ngbTooltip]="'Разблокировать'"
+                        placement="top" aria-label="Разблокировать" data-bs-target="#unblockUserModal"
+                        (click)="onSelectUser(user)"><i class="bi bi-ban"></i></button>
                     }
                     @else {
-                    <button class="btn btn-danger" data-bs-toggle="modal" title="Заблокировать"
+                    <button class="btn btn-danger" data-bs-toggle="modal" [ngbTooltip]="'Заблокировать'" placement="top"
                         aria-label="Заблокировать" data-bs-target="#blockUserModal" (click)="onSelectUser(user)"><i
                             class="bi bi-ban"></i></button>
                     }
                 </div>
-                <button class="btn btn-danger" data-bs-toggle="modal" title="Удалить" aria-label="Удалить"
-                    data-bs-target="#deleteUserModal" (click)="onSelectUser(user)"><i class="bi bi-trash"></i></button>
+                <button class="btn btn-danger" data-bs-toggle="modal" [ngbTooltip]="'Удалить'" placement="top"
+                    aria-label="Удалить" data-bs-target="#deleteUserModal" (click)="onSelectUser(user)"><i
+                        class="bi bi-trash"></i></button>
             </div>
         </div>
     </div>

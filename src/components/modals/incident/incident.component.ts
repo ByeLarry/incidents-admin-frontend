@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
+  ElementRef,
   Input,
   OnChanges,
   SimpleChanges,
@@ -19,26 +20,35 @@ import { SpinnerColorsEnum } from '../../../libs/enums';
 import { Feature } from '@yandex/ymaps3-types/packages/clusterer';
 import { MarkRecvDto } from '../../../libs/dto';
 import { FormatDistancePipe } from '../../../libs/pipes';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { DeleteIncidentCollapseComponent } from '../../collapses/delete-incident/delete-incident.componen';
 
 @Component({
   selector: 'app-incident-modal',
   standalone: true,
-  imports: [SpinnerComponent, CommonModule, ToastComponent, FormatDistancePipe],
+  imports: [
+    SpinnerComponent,
+    CommonModule,
+    ToastComponent,
+    FormatDistancePipe,
+    NgbTooltipModule,
+    DeleteIncidentCollapseComponent,
+  ],
   templateUrl: './incident.component.html',
 })
 export class IncidentModalComponent implements AfterViewInit, OnChanges {
   @Input() incidentFeature?: Feature;
   @ViewChild('toast') toastComponent!: ToastComponent;
+  @ViewChild('closeButton') closeButton!: ElementRef<HTMLButtonElement>;
   spinnerColor = SpinnerColorsEnum.DANGER;
   selectedIncident?: MarkRecvDto;
-
+  deleteCollapseOpened = false;
   constructor(
     private readonly toastService: ToastService,
     private readonly pointsService: PointsService,
     private readonly userService: UserService,
     private readonly cdr: ChangeDetectorRef
   ) {}
-
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['incidentFeature'].firstChange) return;
     this.pointsService
@@ -62,6 +72,27 @@ export class IncidentModalComponent implements AfterViewInit, OnChanges {
     if (data) {
       await navigator.clipboard.writeText(data);
       this.toastService.showToast('Скопировано', data);
+    }
+  }
+
+  toggleDeleteCollapse() {
+    this.deleteCollapseOpened = !this.deleteCollapseOpened;
+  }
+
+  handleIsClosed($event: boolean) {
+    this.deleteCollapseOpened = !$event;
+  }
+
+  handleWasDeleted($event: boolean) {
+    if ($event) {
+      this.pointsService.refetch();
+      this.toastService.showToast('Успех', 'Инцидент удален');
+      this.closeButton.nativeElement.click();
+    } else {
+      this.toastService.showToast(
+        'Произошла ошибка',
+        'Не удалось удалить инцидент'
+      );
     }
   }
 }

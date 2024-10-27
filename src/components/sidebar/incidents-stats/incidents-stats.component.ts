@@ -1,20 +1,29 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { StatsTableComponent } from './stats-table/stats-table.component';
-import { ToastComponent } from '../../../toast/toast.component';
-import { CategoryService, ToastService } from '../../../../libs/services';
-import { CategoryStatsDto } from '../dto';
+import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CategoryService, ToastService } from '../../../libs/services';
+import { ToastComponent } from '../../toast/toast.component';
+import { CategoryStatsDto } from '../categories/dto';
+import { IncidentsStatsTableComponent } from './stats-table/stats-table.component';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-categories-stats',
+  selector: 'app-incidents-stats',
   standalone: true,
-  imports: [StatsTableComponent, ToastComponent, CommonModule],
-  templateUrl: './categories-stats.component.html',
+  imports: [
+    IncidentsStatsTableComponent,
+    ToastComponent,
+    CommonModule,
+    NgbTooltipModule,
+  ],
+  templateUrl: './incidents-stats.component.html',
 })
-export class CategoriesStatsComponent implements AfterViewInit {
+export class IncidentsStatsComponent implements AfterViewInit {
   @ViewChild('toast') toastComponent!: ToastComponent;
+  @Input() withPointsTotal = false;
+  @Input() withCategoriesTotal = false;
   stats?: CategoryStatsDto;
   categoriesCount = 0;
+  pointsCount = 0;
 
   constructor(
     private readonly categoryService: CategoryService,
@@ -36,6 +45,10 @@ export class CategoriesStatsComponent implements AfterViewInit {
       next: (stats) => {
         this.stats = stats;
         this.categoriesCount = this.categoryService.getCategoriesLength();
+        this.pointsCount = this.stats.incidents.reduce(
+          (sum, incident) => sum + incident.incidentsCount,
+          0
+        );
       },
       error: () => {
         this.toastService.showToast(
