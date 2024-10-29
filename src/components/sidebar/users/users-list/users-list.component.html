@@ -26,9 +26,8 @@
 </div>
 
 <ng-template #userListItem let-user>
-    <div class="card mb-3 border-black long-text" [ngClass]="{ 'border-primary': user.roles.includes(adminRole)}">
-        <div class="card-header d-flex justify-content-between"
-            [ngClass]="{ 'border-primary': user.roles.includes(adminRole)}">
+    <div class="card mb-3 border-black long-text">
+        <div class="card-header d-flex justify-content-between">
             <h6 class="h6">{{user.name}} {{user.surname}}</h6>
         </div>
         <div class="card-body">

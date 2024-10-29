@@ -8,7 +8,11 @@ import {
 @Component({
   selector: 'app-map-controls',
   standalone: true,
-  imports: [YMapControlsDirective, YMapControlDirective, RouterLink],
+  imports: [
+    YMapControlsDirective,
+    YMapControlDirective,
+    RouterLink,
+  ],
   templateUrl: './controls.component.html',
 })
 export class ControlsComponent {}

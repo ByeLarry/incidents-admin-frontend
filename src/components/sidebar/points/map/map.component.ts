@@ -7,7 +7,7 @@ import {
   YMapDefaultFeaturesLayerDirective,
   YMapDefaultSchemeLayerDirective,
 } from 'angular-yandex-maps-v3';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { MapConsts } from '../../../../libs/helpers';
 import { Feature } from '@yandex/ymaps3-types/packages/clusterer';
 import {
@@ -18,6 +18,7 @@ import { CommonModule } from '@angular/common';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { IncidentModalComponent } from '../../../modals/incident/incident.component';
 import { ControlsComponent } from './controls/controls.component';
+import { FilterMarksComponent } from '../../../modals/filter-marks/filter-marks.component';
 
 @Component({
   selector: 'app-map',
@@ -30,13 +31,13 @@ import { ControlsComponent } from './controls/controls.component';
     CommonModule,
     IncidentModalComponent,
     ControlsComponent,
+    FilterMarksComponent,
   ],
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements OnDestroy {
-  points$!: Observable<Feature[]>;
-  points: Feature[] = [];
+  selectedPoints: Feature[] = [];
   selectedPoint?: Feature;
   mapProps: YMapProps = {
     location: {
@@ -69,9 +70,8 @@ export class MapComponent implements OnDestroy {
         });
       })
     );
-    this.points$ = toObservable(this.pointsService.points);
-    this.points$.subscribe((data) => {
-      this.points = data;
+    toObservable(this.pointsService.points).subscribe((data) => {
+      this.selectedPoints = [...data];
     });
   }
 

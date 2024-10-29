@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: *
+
+Sitemap: http://localhost:4200/assets/sitemap.xml
+
+Host: localhost:4200

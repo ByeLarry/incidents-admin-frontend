@@ -1,0 +1,36 @@
+{
+  "name": "Incidents-admin",
+  "short_name": "Incidents-admin",
+  "theme_color": "#2b2d31",
+  "background_color": "#2b2d31",
+  "description": "Панель администратора для сервиса анализа происшествий.",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "images/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "images/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshots/screenshot-wide.png",
+      "label": "Wide screenshot",
+      "form_factor": "wide",
+      "sizes": "1548x1383"
+    },
+    {
+      "src": "screenshots/screenshot-narrow.png",
+      "label": "Narrow screenshot",
+      "form_factor": "narrow",
+      "sizes": "380x821"
+    }
+  ]
+}

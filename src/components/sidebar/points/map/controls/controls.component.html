@@ -1,8 +1,13 @@
-<y-map-controls [props]="{ position: 'top left' }">
+<y-map-controls [props]="{ position: 'top left', orientation: 'vertical' }">
     <y-map-control [props]="{transparent: true}">
-        <a class="btn btn-success" 
-            aria-label="На домашнюю страницу" routerLink="/panel">
-            <i class="bi bi-house fs-5 p-3 visible text-light"></i>
+        <a class="btn btn-light text-dark" aria-label="На домашнюю страницу" routerLink="/panel">
+            <i class="bi bi-house fs-5 p-3 visible"></i>
         </a>
+    </y-map-control>
+    <y-map-control [props]="{transparent: true}">
+        <button class="btn btn-light text-dark" type="button" aria-label="Фильтр" data-bs-toggle="modal"
+        data-bs-target="#filterMarksModal">
+            <i class="bi bi-funnel fs-5 p-3 visible"></i>
+        </button>
     </y-map-control>
 </y-map-controls>

@@ -1,0 +1,33 @@
+<div class="modal fade" id="filterMarksModal" tabindex="-1" aria-labelledby="filterMarksModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered ">
+        <div class="modal-content bg-light">
+            <div class="modal-header">
+                <h2 class="modal-title fs-5 long-text" id="filterMarksModalLabel">Фильтр</h2>
+                <button type="button" class="btn-close" #closeButton data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-check form-switch form-check-inline mb-3">
+                    <input class="form-check-input" type="checkbox" (change)="toggleAllCategoriesCheckBox()"
+                        [checked]="isAllCategoriesSelected()" [value]="-1" id="categoryFilter-all" />
+                    <label class="form-check-label" for="categoryFilter-all">
+                        Все
+                    </label>
+                </div>
+                @for (category of categories(); track $index) {
+                <ng-container *ngTemplateOutlet="categoryCheckBox; context: { $implicit: category }"></ng-container>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #categoryCheckBox let-category>
+    <div class="form-check form-check-inline mb-3">
+        <input class="form-check-input" type="checkbox" [value]="category.id" (change)="toggleCategory(category)"
+            [checked]="selectedCategories().includes(category)" id="categoryFilter-{{ category.id }}" />
+        <label class="form-check-label" for="categoryFilter-{{ category.id }}">
+            {{ category.name }}
+        </label>
+    </div>
+</ng-template>

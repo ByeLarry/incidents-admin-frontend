@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import {
   CategoryDto,
   CategoryStatsDto,
@@ -14,6 +14,7 @@ import { tap } from 'rxjs';
 })
 export class CategoryService {
   categories = signal<CategoryDto[]>([]);
+  filteredCategories = signal<CategoryDto[]>([]);
 
   constructor(private readonly http: HttpClient) {
     this.loadCategories();
@@ -23,15 +24,20 @@ export class CategoryService {
     this.findAll().subscribe({
       next: (categories) => {
         this.categories.set(categories);
-      },
-      error: (error) => {
-        console.error('Ошибка при загрузке категорий: ', error);
+        this.filteredCategories.set(categories);
       },
     });
   }
 
   getCategoriesLength() {
     return this.categories().length;
+  }
+
+  inFilteredCategories(id?: number) {
+    console.log(id)
+    return computed(() => {
+      return !!this.filteredCategories().find((category) => category.id === id);
+    })
   }
 
   findAll() {

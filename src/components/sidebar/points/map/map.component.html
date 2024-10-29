@@ -3,7 +3,7 @@
         <y-map-default-scheme-layer />
         <y-map-default-features-layer />
         <app-map-controls />
-        <y-map-clusterer [props]="{ features: points}">
+        <y-map-clusterer [props]="{ features: selectedPoints}">
             <ng-template #marker let-context>
                 <button (click)="onMarkerClick(context)" class="marker-wrapper" data-bs-toggle="modal"
                     data-bs-target="#incidentModal">
@@ -20,3 +20,4 @@
 </div>
 
 <app-incident-modal [incidentFeature]="selectedPoint"></app-incident-modal>
+<app-filter-marks />

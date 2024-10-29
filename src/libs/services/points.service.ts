@@ -1,27 +1,41 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, OnDestroy, signal } from '@angular/core';
+import { Injectable, OnDestroy, signal, computed } from '@angular/core';
 import { Feature } from '@yandex/ymaps3-types/packages/clusterer';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { Observable, Subscription } from 'rxjs';
 import { MarkDto, MarkRecvDto } from '../dto';
 import { WebSocketService } from './web-socket.service';
 import { MsgEnum } from '../enums';
+import { CategoryService } from './category.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PointsService implements OnDestroy {
-  points = signal<Feature[]>([]);
+  private _points = signal<Feature[]>([]); 
+  points = computed(() => {
+    const allPoints = this._points(); 
+    const filteredCategories = this.categoryService.filteredCategories(); 
+
+    return allPoints.filter((point) =>
+      filteredCategories.some(
+        (category) => category.id === point.properties?.['categoryId']
+      )
+    );
+  }); 
   private subscriptions: Subscription[] = [];
 
   constructor(
     private readonly http: HttpClient,
-    private readonly socket: WebSocketService
+    private readonly socket: WebSocketService,
+    private readonly categoryService: CategoryService 
   ) {
     this.refetch();
     const markAddedSubscription = this.socket
       .onEvent<Feature>(MsgEnum.NEW_MARK)
-      .subscribe((newMark) => this.points.update((prev) => [...prev, newMark]));
+      .subscribe((newMark) =>
+        this._points.update((prev) => [...prev, newMark])
+      );
 
     this.subscriptions.push(markAddedSubscription);
   }
@@ -37,11 +51,11 @@ export class PointsService implements OnDestroy {
   }
 
   setPoints(data: Feature[]) {
-    this.points.set([...data]);
+    this._points.set([...data]);
   }
 
   getPointsAsObservable(): Observable<Feature[]> {
-    return toObservable(this.points);
+    return toObservable(this.points); 
   }
 
   refetch() {
