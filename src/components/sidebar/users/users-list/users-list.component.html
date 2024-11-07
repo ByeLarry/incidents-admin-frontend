@@ -38,6 +38,7 @@
                             class="bi bi-copy "></i></button>
                 </li>
                 <li class="list-group-item">Email: {{ user.email || 'Не указан'}}</li>
+                <li class="list-group-item">Авторизация: {{ user.provider || 'Не указан'}}</li>
                 <li class="list-group-item">Дата создания: {{ (user.createdAt | date: 'HH:mm dd.MM.yyyy') || 'Не
                     указана'}}</li>
                 <li class="list-group-item">Дата обновления: {{ (user.updatedAt | date: 'HH:mm dd.MM.yyyy') || 'Не

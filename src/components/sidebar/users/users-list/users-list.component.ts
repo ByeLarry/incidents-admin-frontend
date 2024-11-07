@@ -42,10 +42,11 @@ export class UsersListComponent implements AfterViewInit {
   async copyToClipboard(id: string) {
     if (id) {
       await navigator.clipboard.writeText(id);
-      this.toastService.showToast('Скопировано', 'ID пользователя скопирован');
+      this.toastService.showToast('Скопировано', id);
     }
   }
 
+  
   onSelectUser(data: UserDto) {
     this.selectedUser = { ...data };
   }
