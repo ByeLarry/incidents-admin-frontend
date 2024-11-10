@@ -14,7 +14,7 @@ export class AuthService {
 
   login(data: LoginDto) {
     return this.http.post<UserAndAccessTokenDto>(
-      '/api/auth/admin-login',
+      '/api/auth/admin/login',
       data,
       {
         withCredentials: true,
@@ -43,13 +43,13 @@ export class AuthService {
   }
 
   blockUser(data: UserIdDto) {
-    return this.http.patch<UserDto>('/api/auth/block', data, {
+    return this.http.patch<UserDto>('/api/auth/admin/block', data, {
       withCredentials: true,
     });
   }
 
   unblockUser(data: UserIdDto) {
-    return this.http.patch<UserDto>('/api/auth/unblock', data, {
+    return this.http.patch<UserDto>('/api/auth/admin/unblock', data, {
       withCredentials: true,
     });
   }

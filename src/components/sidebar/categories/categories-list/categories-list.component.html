@@ -1,13 +1,26 @@
-<div class="card border-light">
-    <ng-container *ngIf="categories$ | async as categories">
-        <ng-container *ngFor="let category of categories">
-            <ng-container *ngTemplateOutlet="categoryListItem; context: { $implicit: category }"></ng-container>
+<div class="card border-light d-flex flex-column gap-3">
+    <form class="d-flex flex-column" role="search" [formGroup]="form">
+        <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search"
+            formControlName="search">
+
+    </form>
+    @if (!searchMode) {
+        <ng-container *ngIf="categories$ | async as categories">
+            <ng-container *ngFor="let category of categories">
+                <ng-container *ngTemplateOutlet="categoryListItem; context: { $implicit: category }"></ng-container>
+            </ng-container>
         </ng-container>
-    </ng-container>
+    } @else { 
+        <ng-container *ngIf="searchResults">
+            <ng-container *ngFor="let category of searchResults">
+                <ng-container *ngTemplateOutlet="categoryListItem; context: { $implicit: category }"></ng-container>
+            </ng-container>
+        </ng-container>
+    }
 </div>
 
 <ng-template #categoryListItem let-category>
-    <div class="card mb-3">
+    <div class="card">
         <div class="card-header d-flex justify-content-between">
             <h4 class="h4">{{ category.name }}</h4>
             <h6 class="h6">id: {{ category.id }}</h6>

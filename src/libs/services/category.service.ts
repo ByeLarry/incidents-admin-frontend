@@ -73,4 +73,10 @@ export class CategoryService {
       })
       .pipe(tap(() => this.loadCategories()));
   }
+
+  search(query: string) {
+    return this.http.get<CategoryDto[]>(`/api/categories/search?query=${query}`, {
+      withCredentials: true,
+    });
+  }
 }

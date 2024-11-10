@@ -52,7 +52,7 @@ export class UserService {
   }
 
   getStats() {
-    return this.http.get<UsersStatsDto>('/api/auth/stats', {
+    return this.http.get<UsersStatsDto>('/api/auth/admin/stats', {
       withCredentials: true,
     });
   }

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ToastService, UserListService } from '../../../../libs/services';
 import { UserDto } from '../../../../libs/dto';
 import { RolesEnum } from '../../../../libs/enums';
@@ -9,6 +9,9 @@ import { UnblockUserModalComponent } from '../../../modals/unblock-user/unblock-
 import { DeleteUserModalComponent } from '../../../modals/delete-user/delete-user.component';
 import { UsersPaginationComponent } from './users-pagination/users-pagination.component';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { debounceTime, map, of, switchMap } from 'rxjs';
+import { SEARCH_DEBOUNCE_TIME } from '../../../../libs/helpers';
 
 @Component({
   selector: 'app-users-list',
@@ -21,19 +24,43 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
     DeleteUserModalComponent,
     UsersPaginationComponent,
     NgbTooltipModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './users-list.component.html',
 })
-export class UsersListComponent implements AfterViewInit {
+export class UsersListComponent implements AfterViewInit, OnInit {
   @ViewChild('toast') toastComponent!: ToastComponent;
+  form: FormGroup;
+  searchResults: UserDto[] = [];
   selectedUser?: UserDto;
+  searchMode = false;
   adminRole = RolesEnum.ADMIN;
   users$ = this.userListService.getUsersAsObservable();
 
   constructor(
     private readonly userListService: UserListService,
     private readonly toastService: ToastService
-  ) {}
+  ) {
+    this.form = new FormGroup({
+      search: new FormControl(''),
+    });
+  }
+  ngOnInit() {
+    this.form
+      .get('search')
+      ?.valueChanges.pipe(
+        debounceTime(SEARCH_DEBOUNCE_TIME),
+        map(val => val.trim()),
+        switchMap((value) => {
+          this.searchMode = !!value;
+          if (value) return this.userListService.search(value);
+          else return of([]);
+        })
+      )
+      .subscribe((data) => {
+        this.searchResults = [...data];
+      });
+  }
 
   ngAfterViewInit(): void {
     this.toastService.registerToast(this.toastComponent);
@@ -46,8 +73,8 @@ export class UsersListComponent implements AfterViewInit {
     }
   }
 
-  
   onSelectUser(data: UserDto) {
     this.selectedUser = { ...data };
   }
+
 }

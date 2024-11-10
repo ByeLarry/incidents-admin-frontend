@@ -10,3 +10,4 @@ export * from './users-stats.dto';
 export * from './users-via-pagination.dto';
 export * from './mark.dto';
 export * from './mark-recv.dto';
+export * from './user-search.dto';

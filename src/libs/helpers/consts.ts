@@ -11,3 +11,4 @@ export const YMAP_CONFIG: YConfig = {
   apikey: environment.ymapsApiKey,
   lang: 'ru_RU',
 };
+export const SEARCH_DEBOUNCE_TIME = 300;

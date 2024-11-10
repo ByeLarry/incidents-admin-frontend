@@ -30,7 +30,7 @@ export class UserListService {
 
   private getAllUsers(page: number, limit: number) {
     return this.http.get<UsersViaPaginationDto>(
-      `/api/auth/users?page=${page}&limit=${limit}`,
+      `/api/auth/admin/users?page=${page}&limit=${limit}`,
       {
         withCredentials: true,
       }
@@ -41,6 +41,13 @@ export class UserListService {
     this.getAllUsers(page, limit).subscribe((data) => {
       this.users.set(data.users);
       this.paginationData.set(data);
+    });
+  }
+
+  
+  search(query: string) {
+    return this.http.get<UserDto[]>(`/api/auth/admin/search?query=${query}`, {
+      withCredentials: true,
     });
   }
 }
