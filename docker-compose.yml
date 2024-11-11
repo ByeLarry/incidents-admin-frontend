@@ -3,6 +3,6 @@ version: '3.8'
 services:
   proxy-admin: 
     build: .
-    container_name: incidents-admin-proxy
+    container_name: incidents-apache
     ports:
       - '4200:4200'
