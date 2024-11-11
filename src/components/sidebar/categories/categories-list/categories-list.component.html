@@ -1,22 +1,22 @@
 <div class="card border-light d-flex flex-column gap-3">
     <form class="d-flex flex-column" role="search" [formGroup]="form">
-        <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search"
-            formControlName="search">
-
+        <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search" formControlName="search">
     </form>
+
     @if (!searchMode) {
-        <ng-container *ngIf="categories$ | async as categories">
-            <ng-container *ngFor="let category of categories">
-                <ng-container *ngTemplateOutlet="categoryListItem; context: { $implicit: category }"></ng-container>
-            </ng-container>
+    <ng-container *ngIf="categories$ | async as categories">
+        <ng-container *ngFor="let category of categories">
+            <ng-container *ngTemplateOutlet="categoryListItem; context: { $implicit: category }"></ng-container>
         </ng-container>
-    } @else { 
-        <ng-container *ngIf="searchResults">
-            <ng-container *ngFor="let category of searchResults">
-                <ng-container *ngTemplateOutlet="categoryListItem; context: { $implicit: category }"></ng-container>
-            </ng-container>
+    </ng-container>
+    } @else {
+    <ng-container *ngIf="searchResults">
+        <ng-container *ngFor="let category of searchResults">
+            <ng-container *ngTemplateOutlet="categoryListItem; context: { $implicit: category }"></ng-container>
         </ng-container>
+    </ng-container>
     }
+    
 </div>
 
 <ng-template #categoryListItem let-category>
@@ -45,3 +45,5 @@
         </div>
     </div>
 </ng-template>
+
+<app-toast #toast></app-toast>

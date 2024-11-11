@@ -21,7 +21,6 @@ import {
   ACCESS_TOKEN_KEY,
   RUS_PHONE_NUMBER_REGULAR,
 } from '../../../libs/helpers';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-update-current-user',
@@ -97,8 +96,7 @@ export class UpdateCurrentUserComponent implements AfterViewInit, OnChanges {
             localStorage.setItem(ACCESS_TOKEN_KEY, data.accessToken);
             this.userService.setUser({ ...data.user });
           },
-          error: (error: HttpErrorResponse) => {
-            console.log(error);
+          error: () => {
             this.toastService.showToast(
               'Ошибка',
               'Произошла ошибка при обновлении данных'

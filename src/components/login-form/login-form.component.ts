@@ -74,7 +74,6 @@ export class LoginFormComponent implements AfterViewInit {
         })
         .add(() => {
           this.isSubmitting = false;
-          console.log('loggin')
           this.form.reset();
         });
     } else {

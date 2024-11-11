@@ -3,8 +3,6 @@ import {
   AfterViewInit,
   Component,
   Input,
-  OnChanges,
-  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { SpinnerComponent } from '../../spinner/spinner.component';
@@ -35,7 +33,7 @@ import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
   ],
   templateUrl: './add-admin.component.html',
 })
-export class CreateAdminModalComponent implements AfterViewInit, OnChanges {
+export class CreateAdminModalComponent implements AfterViewInit {
   @Input() user?: UserDto;
   @ViewChild('toast') toastComponent!: ToastComponent;
   submitting = false;
@@ -50,10 +48,6 @@ export class CreateAdminModalComponent implements AfterViewInit, OnChanges {
     this.form = new FormGroup({
       id: new FormControl('', [Validators.required]),
     });
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
   }
 
   ngAfterViewInit(): void {

@@ -34,10 +34,9 @@ export class CategoryService {
   }
 
   inFilteredCategories(id?: number) {
-    console.log(id)
     return computed(() => {
       return !!this.filteredCategories().find((category) => category.id === id);
-    })
+    });
   }
 
   findAll() {
@@ -75,7 +74,16 @@ export class CategoryService {
   }
 
   search(query: string) {
-    return this.http.get<CategoryDto[]>(`/api/categories/search?query=${query}`, {
+    return this.http.get<CategoryDto[]>(
+      `/api/categories/search?query=${query}`,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  clearCache() {
+    return this.http.get('/api/categories/clear-cache', {
       withCredentials: true,
     });
   }
