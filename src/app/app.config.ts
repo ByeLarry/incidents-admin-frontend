@@ -7,7 +7,11 @@ import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
-import { BaseUrlInterceptor, AuthInterceptor } from '../libs/interceptors';
+import {
+  BaseUrlInterceptor,
+  AuthInterceptor,
+  TimeoutInterceptor,
+} from '../libs/interceptors';
 import { provideYConfig } from 'angular-yandex-maps-v3';
 import { YMAP_CONFIG } from '../libs/helpers';
 import { provideServiceWorker } from '@angular/service-worker';
@@ -18,6 +22,11 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptorsFromDi()),
     {
       provide: HTTP_INTERCEPTORS,
+      useClass: TimeoutInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
       useClass: BaseUrlInterceptor,
       multi: true,
     },
@@ -26,9 +35,10 @@ export const appConfig: ApplicationConfig = {
       useClass: AuthInterceptor,
       multi: true,
     },
-    provideYConfig(YMAP_CONFIG), provideServiceWorker('ngsw-worker.js', {
-            enabled: !isDevMode(),
-            registrationStrategy: 'registerWhenStable:30000'
-          })
+    provideYConfig(YMAP_CONFIG),
+    provideServiceWorker('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      registrationStrategy: 'registerWhenStable:30000',
+    }),
   ],
 };

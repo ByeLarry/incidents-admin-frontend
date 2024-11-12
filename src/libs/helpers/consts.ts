@@ -12,3 +12,4 @@ export const YMAP_CONFIG: YConfig = {
   lang: 'ru_RU',
 };
 export const SEARCH_DEBOUNCE_TIME = 300;
+export const DEFAULT_HTTP_TIMEOUT = 5000;
