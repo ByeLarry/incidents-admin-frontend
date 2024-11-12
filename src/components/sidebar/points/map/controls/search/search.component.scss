@@ -1,0 +1,6 @@
+.searched{
+    &:hover{
+        cursor: pointer;
+        background-color: var(--bs-btn-hover-bg);
+    }
+}

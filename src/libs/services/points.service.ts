@@ -3,7 +3,7 @@ import { Injectable, OnDestroy, signal, computed } from '@angular/core';
 import { Feature } from '@yandex/ymaps3-types/packages/clusterer';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { Observable, Subscription } from 'rxjs';
-import { MarkDto, MarkRecvDto } from '../dto';
+import { MarkDto, MarkRecvDto, MarkSearchDto } from '../dto';
 import { WebSocketService } from './web-socket.service';
 import { MsgEnum } from '../enums';
 import { CategoryService } from './category.service';
@@ -12,23 +12,23 @@ import { CategoryService } from './category.service';
   providedIn: 'root',
 })
 export class PointsService implements OnDestroy {
-  private _points = signal<Feature[]>([]); 
+  private _points = signal<Feature[]>([]);
   points = computed(() => {
-    const allPoints = this._points(); 
-    const filteredCategories = this.categoryService.filteredCategories(); 
+    const allPoints = this._points();
+    const filteredCategories = this.categoryService.filteredCategories();
 
     return allPoints.filter((point) =>
       filteredCategories.some(
         (category) => category.id === point.properties?.['categoryId']
       )
     );
-  }); 
+  });
   private subscriptions: Subscription[] = [];
 
   constructor(
     private readonly http: HttpClient,
     private readonly socket: WebSocketService,
-    private readonly categoryService: CategoryService 
+    private readonly categoryService: CategoryService
   ) {
     this.refetch();
     const markAddedSubscription = this.socket
@@ -55,7 +55,7 @@ export class PointsService implements OnDestroy {
   }
 
   getPointsAsObservable(): Observable<Feature[]> {
-    return toObservable(this.points); 
+    return toObservable(this.points);
   }
 
   refetch() {
@@ -75,5 +75,9 @@ export class PointsService implements OnDestroy {
     return this.http.delete(`/api/marks/${id}`, {
       withCredentials: true,
     });
+  }
+
+  search(query: string) {
+    return this.http.get<MarkSearchDto[]>(`/api/marks/search?query=${query}`);
   }
 }

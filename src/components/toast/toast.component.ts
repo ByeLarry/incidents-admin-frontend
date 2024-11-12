@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { DEFAULT_TOAST_DURATION } from '../../libs/helpers';
 
 @Component({

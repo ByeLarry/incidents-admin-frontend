@@ -1,8 +1,14 @@
 <div class="map-wrapper">
+    <button style="display: none;" data-bs-toggle="modal" data-bs-target="#incidentModal" aria-hidden="true" tabindex="-1"
+    #incidentsModalButton>.
+</button>
     <y-map [props]="mapProps">
         <y-map-default-scheme-layer />
+        <y-map-listener [props]="{
+      onClick: onMapClick,
+    }" />
         <y-map-default-features-layer />
-        <app-map-controls />
+        <app-map-controls (markSelected)="onSearchedMarkSelect($event)" />
         <y-map-clusterer [props]="{ features: selectedPoints}">
             <ng-template #marker let-context>
                 <button (click)="onMarkerClick(context)" class="marker-wrapper" data-bs-toggle="modal"

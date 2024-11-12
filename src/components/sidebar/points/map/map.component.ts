@@ -1,11 +1,17 @@
-import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
-import { LngLat, YMapProps } from '@yandex/ymaps3-types';
+import { ChangeDetectorRef, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import {
+  DomEvent,
+  DomEventHandlerObject,
+  LngLat,
+  YMapProps,
+} from '@yandex/ymaps3-types';
 import {
   YApiLoaderService,
   YMapClustererDirective,
   YMapComponent,
   YMapDefaultFeaturesLayerDirective,
   YMapDefaultSchemeLayerDirective,
+  YMapListenerDirective,
 } from 'angular-yandex-maps-v3';
 import { Subscription } from 'rxjs';
 import { MapConsts } from '../../../../libs/helpers';
@@ -19,6 +25,7 @@ import { toObservable } from '@angular/core/rxjs-interop';
 import { IncidentModalComponent } from '../../../modals/incident/incident.component';
 import { ControlsComponent } from './controls/controls.component';
 import { FilterMarksComponent } from '../../../modals/filter-marks/filter-marks.component';
+import { MarkSearchDto } from '../../../../libs/dto';
 
 @Component({
   selector: 'app-map',
@@ -28,6 +35,7 @@ import { FilterMarksComponent } from '../../../modals/filter-marks/filter-marks.
     YMapDefaultSchemeLayerDirective,
     YMapDefaultFeaturesLayerDirective,
     YMapClustererDirective,
+    YMapListenerDirective,
     CommonModule,
     IncidentModalComponent,
     ControlsComponent,
@@ -39,6 +47,7 @@ import { FilterMarksComponent } from '../../../modals/filter-marks/filter-marks.
 export class MapComponent implements OnDestroy {
   selectedPoints: Feature[] = [];
   selectedPoint?: Feature;
+  @ViewChild('incidentsModalButton') incidentsModalButton?: ElementRef<HTMLButtonElement>;
   mapProps: YMapProps = {
     location: {
       center: MapConsts.INITIAL_CENTER,
@@ -81,6 +90,32 @@ export class MapComponent implements OnDestroy {
 
   onMarkerClick(context: Feature) {
     this.selectedPoint = { ...context };
+    this.cdr.detectChanges();
+  }
+
+  onMapClick(object: DomEventHandlerObject, event: DomEvent) {
+    console.log('click', object, event);
+  }
+
+  onSearchedMarkSelect(mark: MarkSearchDto) {
+    const newMapCenter: LngLat = [mark.lng, mark.lat];
+    this.mapProps = {
+      ...this.mapProps,
+      location: {
+        ...this.mapProps.location,
+        center: newMapCenter,
+      },
+    };
+    this.selectedPoint = {
+      id: mark.id.toString(),
+      type: 'Feature',
+      geometry: { coordinates: [mark.lng, mark.lat], type: 'Point' },
+      properties: {
+        color: mark.category.color,
+        categoryId: mark.category.id,
+      },
+    };
+    this.incidentsModalButton?.nativeElement.click();
     this.cdr.detectChanges();
   }
 }

@@ -1,0 +1,33 @@
+<form class="d-flex flex-column" role="search" [formGroup]="form">
+    @if(searchMode) {
+    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark">
+        {{ searchResults.length }}
+        <span class="visually-hidden">unread messages</span>
+    </span>
+    }
+    <input class="form-control mb-2" type="search" style="width: 24rem;" placeholder="Поиск" aria-label="Search"
+        formControlName="search">
+</form>
+@if (searchMode) {
+<div class="card overflow-y-auto bg-transparent border-0">
+    <div class="list-group list-group-flush cursor-pointer">
+        <ng-container *ngIf="searchResults">
+            <ng-container *ngFor="let mark of searchResults">
+                <ng-container *ngTemplateOutlet="searchMarksResult; context: { $implicit: mark }"></ng-container>
+            </ng-container>
+        </ng-container>
+    </div>
+</div>
+}
+
+<ng-template #searchMarksResult let-mrk>
+    <button class="list-group-item searched btn-light d-flex justify-content-between"
+        style="max-width: 24rem; " (click)="onSelectSearchedMark(mrk)">
+        <span class="long-text ">
+            {{mrk.title}}
+        </span>
+        <div class="d-flex flex-column justify-content-center ">
+            <span class="badge text-bg-secondary">{{mrk.category.name}}</span>
+        </div>
+    </button>
+</ng-template>

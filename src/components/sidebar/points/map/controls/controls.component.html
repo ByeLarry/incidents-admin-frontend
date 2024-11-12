@@ -6,8 +6,13 @@
     </y-map-control>
     <y-map-control [props]="{transparent: true}">
         <button class="btn btn-light text-dark" type="button" aria-label="Фильтр" data-bs-toggle="modal"
-        data-bs-target="#filterMarksModal">
+            data-bs-target="#filterMarksModal">
             <i class="bi bi-funnel fs-5 p-3 visible"></i>
         </button>
+    </y-map-control>
+</y-map-controls>
+<y-map-controls [props]="{ position: 'top'}">
+    <y-map-control [props]="{transparent: true}">
+        <app-map-search class="position-relative" (markSelected)="markSelected.emit($event)"></app-map-search>
     </y-map-control>
 </y-map-controls>

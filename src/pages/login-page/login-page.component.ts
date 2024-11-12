@@ -24,17 +24,15 @@ export class LoginPageComponent implements OnInit {
   ngOnInit(): void {
     if (this.isTokenInStorage()) {
       this.gettingUser = true;
-      this.authService
-        .getUser()
-        .subscribe({
-          next: (user) => {
-            this.userService.setUser(user);
-            this.location.back()
-          },
-          error: () => {
-            this.gettingUser = false;
-          },
-        });
+      this.authService.getUser().subscribe({
+        next: (user) => {
+          this.userService.setUser(user);
+          this.location.back();
+        },
+        error: () => {
+          this.gettingUser = false;
+        },
+      });
     }
   }
 
