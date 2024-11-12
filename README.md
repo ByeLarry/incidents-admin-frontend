@@ -37,6 +37,7 @@ _Диаграммы можно сохранять и редактировать 
 - #### API-шлюз:  *https://github.com/ByeLarry/incidents-gateway*
 - #### Сервис авторизации:  *https://github.com/ByeLarry/incidents-auth-service*
 - #### Сервис марок (инцидентов): *https://github.com/ByeLarry/indcidents-marks-service*
+- #### Сервис поиска *https://github.com/ByeLarry/incidents-search-service*
 - #### Демонастрация функционала версии 0.1.0: *https://youtu.be/H0-Qg97rvBM*
 
 
