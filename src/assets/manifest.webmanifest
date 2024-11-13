@@ -1,10 +1,12 @@
 {
-  "name": "Incidents-admin",
+  "name": "Сервис происшествий [админ]",
   "short_name": "Incidents-admin",
   "theme_color": "#2b2d31",
   "background_color": "#2b2d31",
   "description": "Панель администратора для сервиса анализа происшествий.",
   "display": "standalone",
+  "orientation": "portrait",
+  "lang": "Ru",
   "scope": "/",
   "start_url": "/",
   "icons": [
