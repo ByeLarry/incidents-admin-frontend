@@ -4,6 +4,7 @@ import { SpinnerComponent } from '../../components/spinner/spinner.component';
 import { ACCESS_TOKEN_KEY } from '../../libs/helpers';
 import { AuthService, UserService } from '../../libs/services';
 import { Router } from '@angular/router';
+import { RolesEnum } from '../../libs/enums';
 
 @Component({
   selector: 'app-home-page',
@@ -25,9 +26,12 @@ export class LoginPageComponent implements OnInit {
       this.gettingUser = true;
       this.authService.getUser().subscribe({
         next: (user) => {
-          this.userService.setUser(user);
-          this.router.navigate(['/panel']);
-          // this.location.;
+          if (user.roles.includes(RolesEnum.ADMIN)) {
+            this.userService.setUser(user);
+            this.router.navigate(['/panel']);
+          } else {
+           this.gettingUser = false;
+          }
         },
         error: () => {
           this.gettingUser = false;
