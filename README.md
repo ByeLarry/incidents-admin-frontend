@@ -38,7 +38,9 @@ _Диаграммы можно сохранять и редактировать 
 - #### Сервис авторизации:  *https://github.com/ByeLarry/incidents-auth-service*
 - #### Сервис марок (инцидентов): *https://github.com/ByeLarry/indcidents-marks-service*
 - #### Сервис поиска *https://github.com/ByeLarry/incidents-search-service*
-- #### Демонастрация функционала версии 0.1.0: *https://youtu.be/H0-Qg97rvBM*
+- #### Демонастрация функционала пользовательской части версии 0.1.0: *https://youtu.be/H0-Qg97rvBM*
+- #### Демонастрация функционала пользовательской части версии 0.2.0: *https://youtu.be/T33RFvfTxNU*
+- #### Демонастрация функционала панели администратора версии 0.1.0: *https://youtu.be/7LTnEMYuzUo*
 
 
 
