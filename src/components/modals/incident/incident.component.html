@@ -13,7 +13,7 @@
                             placement="left" (click)="copyToClipboard(selectedIncident?.id?.toString())"><i
                                 class="bi bi-copy "></i></button>
                     </li>
-                    <li class="list-group-item d-flex justify-content-between">userId: {{ selectedIncident?.userId }}
+                    <li class="list-group-item d-flex justify-content-between">Автор: {{ selectedIncident?.userId }}
                         <button class="btn btn-outline-primary btn-sm" aria-label="Скопировать"
                             [ngbTooltip]="'Скопировать'" placement="left"
                             (click)="copyToClipboard(selectedIncident?.userId)"><i class="bi bi-copy "></i></button>
