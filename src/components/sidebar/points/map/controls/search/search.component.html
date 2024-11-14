@@ -8,6 +8,9 @@
     <input class="form-control mb-2" type="search" style="width: 24rem;" placeholder="Поиск" aria-label="Search"
         formControlName="search">
 </form>
+@if (searchPending) {
+<div class="d-flex justify-content-center"><app-spinner [color]="spinnerColor" /></div>
+}
 @if (searchMode) {
 <div class="card overflow-y-auto bg-transparent border-0">
     <div class="list-group list-group-flush cursor-pointer">
@@ -21,8 +24,8 @@
 }
 
 <ng-template #searchMarksResult let-mrk>
-    <button class="list-group-item searched btn-light d-flex justify-content-between"
-        style="max-width: 24rem; " (click)="onSelectSearchedMark(mrk)">
+    <button class="list-group-item searched btn-light d-flex justify-content-between" style="max-width: 24rem; "
+        (click)="onSelectSearchedMark(mrk)">
         <span class="long-text ">
             {{mrk.title}}
         </span>

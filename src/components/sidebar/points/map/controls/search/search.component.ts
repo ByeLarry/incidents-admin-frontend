@@ -12,17 +12,21 @@ import { SEARCH_DEBOUNCE_TIME } from '../../../../../../libs/helpers';
 import { PointsService } from '../../../../../../libs/services';
 import { MarkSearchDto } from '../../../../../../libs/dto';
 import { CommonModule } from '@angular/common';
+import { SpinnerColorsEnum } from '../../../../../../libs/enums';
+import { SpinnerComponent } from '../../../../../spinner/spinner.component';
 
 @Component({
   selector: 'app-map-search',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, SpinnerComponent],
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
 })
 export class MapSearchComponent implements OnInit {
   form: FormGroup;
   searchMode = false;
+  searchPending = false;
+  spinnerColor = SpinnerColorsEnum.LIGHT;
   searchResults: MarkSearchDto[] = [];
   @Output() markSelected = new EventEmitter<MarkSearchDto>();
 
@@ -43,12 +47,18 @@ export class MapSearchComponent implements OnInit {
         map((val) => val.trim()),
         switchMap((value) => {
           this.searchMode = !!value;
-          if (value) return this.pointsService.search(value);
-          else return of([]);
+          if (value) {
+            this.searchPending = true;
+            return this.pointsService.search(value);
+          } else {
+            this.searchPending = false;
+            return of([]);
+          }
         })
       )
       .subscribe((data) => {
         this.searchResults = [...data];
+        this.searchPending = false;
       });
   }
 
@@ -69,7 +79,7 @@ export class MapSearchComponent implements OnInit {
   }
 
   onSelectSearchedMark(mark: MarkSearchDto) {
-    this.markSelected.emit({...mark});
+    this.markSelected.emit({ ...mark });
     this.searchMode = false;
     this.searchResults = [];
     this.form.get('search')?.setValue('');

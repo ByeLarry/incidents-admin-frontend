@@ -1,4 +1,8 @@
 <nav class="d-flex mt-2 mb-2 justify-content-center" aria-label="Users pagination">
+        @if (pending) {
+        <div class="d-flex justify-content-center"><app-spinner [color]="spinnerColor" /></div>
+        }
+        @else {
         <ul class="pagination mb-0">
                 <li class="page-item"><button class="page-link" (click)="goToPreviousPage()"
                                 [disabled]="activePage <= 1">Previous</button></li>
@@ -20,6 +24,8 @@
                 <li class="page-item"><button class="page-link" [disabled]="activePage * limit >= total"
                                 (click)="goToNextPage()">Next</button></li>
         </ul>
+        }
+
 </nav>
 
 <app-toast #toast></app-toast>

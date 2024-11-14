@@ -19,8 +19,8 @@ export class TimeoutInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       timeout(DEFAULT_HTTP_TIMEOUT),
-      catchError(() => {
-        return throwError(() => new Error('Запрос превысил время ожидания'));
+      catchError((err) => {
+        return throwError(() => err);
       })
     );
   }

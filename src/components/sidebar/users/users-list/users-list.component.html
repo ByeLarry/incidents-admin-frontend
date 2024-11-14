@@ -9,6 +9,9 @@
                 formControlName="search">
 
         </form>
+        @if (searchPending) {
+        <div class="d-flex justify-content-center"><app-spinner [color]="spinnerColor" /></div>
+        }
         <ng-container *ngIf="users$ | async as users">
             @if(users.length === 0) {
             <div class="d-flex justify-content-center ">

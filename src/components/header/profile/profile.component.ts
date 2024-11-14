@@ -6,16 +6,16 @@ import { UserDto } from '../../../libs/dto';
 import { CreateAdminModalComponent } from '../../modals/add-admin/add-admin.component';
 
 @Component({
-  selector: 'app-dropdown',
+  selector: 'app-profile',
   standalone: true,
   imports: [
     LogoutModalComponent,
     UpdateCurrentUserComponent,
     CreateAdminModalComponent,
   ],
-  templateUrl: './dropdown.component.html',
+  templateUrl: './profile.component.html',
 })
-export class DropdownComponent implements OnInit {
+export class ProfileComponent implements OnInit {
   user!: Signal<UserDto | null>;
 
   constructor(private readonly userService: UserService) {}

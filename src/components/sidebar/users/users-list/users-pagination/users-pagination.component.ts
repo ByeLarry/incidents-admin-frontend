@@ -5,17 +5,21 @@ import { ToastService, UserListService } from '../../../../../libs/services';
 import { UsersViaPaginationDto } from '../../../../../libs/dto';
 import { Observable } from 'rxjs';
 import { USERS_PAGINATION_LIMIT } from '../../../../../libs/helpers';
+import { SpinnerComponent } from '../../../../spinner/spinner.component';
+import { SpinnerColorsEnum } from '../../../../../libs/enums';
 
 @Component({
   selector: 'app-users-pagination',
   standalone: true,
-  imports: [CommonModule, ToastComponent],
+  imports: [CommonModule, ToastComponent, SpinnerComponent],
   templateUrl: './users-pagination.component.html',
 })
 export class UsersPaginationComponent implements AfterViewInit {
   @ViewChild('toast') toastComponent!: ToastComponent;
   paginationData$: Observable<UsersViaPaginationDto | null>;
   activePage = 1;
+  pending = false;
+  spinnerColor = SpinnerColorsEnum.PRIMARY;
   limit = USERS_PAGINATION_LIMIT;
   total = 0;
 
@@ -30,6 +34,7 @@ export class UsersPaginationComponent implements AfterViewInit {
         this.limit = data.limit;
         this.total = data.total;
       }
+      this.pending = false;
     });
   }
 
@@ -39,13 +44,16 @@ export class UsersPaginationComponent implements AfterViewInit {
 
   goToPreviousPage() {
     this.userListService.refetch(this.activePage - 1);
+    this.pending = true;
   }
 
   goToNextPage() {
     this.userListService.refetch(this.activePage + 1);
+    this.pending = true;
   }
 
   handlePageClick(pageNumber: number) {
     this.userListService.refetch(pageNumber);
+    this.pending = true;
   }
 }

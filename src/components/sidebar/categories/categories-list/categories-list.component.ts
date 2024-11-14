@@ -10,6 +10,8 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, map, of, switchMap } from 'rxjs';
 import { SEARCH_DEBOUNCE_TIME } from '../../../../libs/helpers';
 import { ToastComponent } from '../../../toast/toast.component';
+import { SpinnerComponent } from '../../../spinner/spinner.component';
+import { SpinnerColorsEnum } from '../../../../libs/enums';
 
 @Component({
   selector: 'app-categories-list',
@@ -21,6 +23,7 @@ import { ToastComponent } from '../../../toast/toast.component';
     NgbTooltipModule,
     ReactiveFormsModule,
     ToastComponent,
+    SpinnerComponent,
   ],
   templateUrl: './categories-list.component.html',
 })
@@ -30,6 +33,8 @@ export class CategoriesListComponent implements OnInit, AfterViewInit {
   form: FormGroup;
   searchResults: CategoryDto[] = [];
   searchMode = false;
+  searchPending = false;
+  spinnerColor = SpinnerColorsEnum.PRIMARY;
   categories$ = toObservable(this.categoryService.categories);
   isDeleting = false;
 
@@ -50,12 +55,18 @@ export class CategoriesListComponent implements OnInit, AfterViewInit {
         map((val) => val.trim()),
         switchMap((value) => {
           this.searchMode = !!value;
-          if (value) return this.categoryService.search(value);
-          else return of([]);
+          if (value) {
+            this.searchPending = true;
+            return this.categoryService.search(value);
+          } else {
+            this.searchPending = false;
+            return of([]);
+          }
         })
       )
       .subscribe((data) => {
         this.searchResults = [...data];
+        this.searchPending = false;
       });
   }
 

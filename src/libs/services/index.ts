@@ -7,3 +7,4 @@ export * from './user-list.service';
 export * from './points.service';
 export * from './current-location.service';
 export * from './web-socket.service';
+export * from './search-engine-reindex.service';

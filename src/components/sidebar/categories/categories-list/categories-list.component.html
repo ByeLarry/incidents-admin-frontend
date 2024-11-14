@@ -2,7 +2,9 @@
     <form class="d-flex flex-column" role="search" [formGroup]="form">
         <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search" formControlName="search">
     </form>
-
+    @if (searchPending) {
+    <div class="d-flex justify-content-center"><app-spinner [color]="spinnerColor" /></div>
+    }
     @if (!searchMode) {
     <ng-container *ngIf="categories$ | async as categories">
         <ng-container *ngFor="let category of categories">
@@ -16,7 +18,8 @@
         </ng-container>
     </ng-container>
     }
-    
+
+
 </div>
 
 <ng-template #categoryListItem let-category>
