@@ -9,7 +9,10 @@ import {
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, map, of, switchMap } from 'rxjs';
 import { SEARCH_DEBOUNCE_TIME } from '../../../../../../libs/helpers';
-import { PointsService } from '../../../../../../libs/services';
+import {
+  CategoryService,
+  PointsService,
+} from '../../../../../../libs/services';
 import { MarkSearchDto } from '../../../../../../libs/dto';
 import { CommonModule } from '@angular/common';
 import { SpinnerColorsEnum } from '../../../../../../libs/enums';
@@ -28,11 +31,13 @@ export class MapSearchComponent implements OnInit {
   searchPending = false;
   spinnerColor = SpinnerColorsEnum.LIGHT;
   searchResults: MarkSearchDto[] = [];
+  searchedResultsCount = 0;
   @Output() markSelected = new EventEmitter<MarkSearchDto>();
 
   constructor(
     private readonly pointsService: PointsService,
-    private readonly elementRef: ElementRef
+    private readonly elementRef: ElementRef,
+    private readonly categoryService: CategoryService
   ) {
     this.form = new FormGroup({
       search: new FormControl(''),
@@ -57,7 +62,14 @@ export class MapSearchComponent implements OnInit {
         })
       )
       .subscribe((data) => {
-        this.searchResults = [...data];
+        this.searchedResultsCount = data.length;
+        this.searchResults = [
+          ...data.filter((mark) =>
+            this.categoryService
+              .filteredCategories()
+              .some((category) => category.id === mark.category.id)
+          ),
+        ];
         this.searchPending = false;
       });
   }

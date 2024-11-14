@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MapComponent } from './map/map.component';
 import { SIDEBAR_LOCAL_STORAGE_KEY } from '../../../libs/helpers';
 import { SidebarEnum } from '../../../libs/enums';
 import { Observable } from 'rxjs';
@@ -12,7 +11,7 @@ import { IncidentsStatsComponent } from '../incidents-stats/incidents-stats.comp
 @Component({
   selector: 'app-points',
   standalone: true,
-  imports: [MapComponent, PointsOptionsComponent, IncidentsStatsComponent],
+  imports: [PointsOptionsComponent, IncidentsStatsComponent],
   templateUrl: './points.component.html',
 })
 export class PointsComponent implements OnInit {
