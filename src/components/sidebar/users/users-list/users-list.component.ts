@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ToastService, UserListService } from '../../../../libs/services';
 import { UserDto } from '../../../../libs/dto';
 import { RolesEnum, SpinnerColorsEnum } from '../../../../libs/enums';
@@ -10,7 +16,7 @@ import { DeleteUserModalComponent } from '../../../modals/delete-user/delete-use
 import { UsersPaginationComponent } from './users-pagination/users-pagination.component';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { debounceTime, map, of, switchMap } from 'rxjs';
+import { debounceTime, map, of, Subscription, switchMap } from 'rxjs';
 import { SEARCH_DEBOUNCE_TIME } from '../../../../libs/helpers';
 import { SpinnerComponent } from '../../../spinner/spinner.component';
 
@@ -30,8 +36,9 @@ import { SpinnerComponent } from '../../../spinner/spinner.component';
   ],
   templateUrl: './users-list.component.html',
 })
-export class UsersListComponent implements AfterViewInit, OnInit {
+export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
   @ViewChild('toast') toastComponent!: ToastComponent;
+  private subscriptions: Subscription = new Subscription();
   form: FormGroup;
   searchResults: UserDto[] = [];
   selectedUser?: UserDto;
@@ -50,7 +57,7 @@ export class UsersListComponent implements AfterViewInit, OnInit {
     });
   }
   ngOnInit() {
-    this.form
+    const searchSubscription = this.form
       .get('search')
       ?.valueChanges.pipe(
         debounceTime(SEARCH_DEBOUNCE_TIME),
@@ -76,10 +83,23 @@ export class UsersListComponent implements AfterViewInit, OnInit {
           this.searchResults = [];
         },
       });
+
+      const usersSubscription = this.users$.subscribe(() => {
+      this.form.setValue({
+        search: this.form.get('search')?.value,
+      });
+    });
+
+    this.subscriptions.add(searchSubscription);
+    this.subscriptions.add(usersSubscription);
   }
 
   ngAfterViewInit(): void {
     this.toastService.registerToast(this.toastComponent);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 
   async copyToClipboard(id: string) {
