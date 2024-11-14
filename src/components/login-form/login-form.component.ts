@@ -12,6 +12,7 @@ import { SpinnerComponent } from '../spinner/spinner.component';
 import { ToastComponent } from '../toast/toast.component';
 import { ACCESS_TOKEN_KEY } from '../../libs/helpers';
 import { Router } from '@angular/router';
+import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 
 @Component({
   selector: 'app-login-form',
@@ -44,7 +45,6 @@ export class LoginFormComponent implements AfterViewInit {
     });
   }
 
-
   ngAfterViewInit(): void {
     this.toastService.registerToast(this.toastComponent);
   }
@@ -64,12 +64,16 @@ export class LoginFormComponent implements AfterViewInit {
             this.userService.setUser(data.user);
             this.router.navigate(['/panel']);
           },
-          error: (error) => {
-            console.error(error);
-            this.toastService.showToast(
-              'Ошибка входа',
-              'Неправильно введен логин или пароль'
-            );
+          error: (err: HttpErrorResponse) => {
+            if (
+              err.status === HttpStatusCode.Unauthorized ||
+              err.status === HttpStatusCode.NotFound
+            )
+              this.toastService.showToast(
+                'Ошибка входа',
+                'Неправильно введен логин или пароль'
+              );
+            else this.toastService.showToast('Ошибка', 'Сервер недоступен');
           },
         })
         .add(() => {
