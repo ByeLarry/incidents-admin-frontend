@@ -68,8 +68,8 @@
                     [ngClass]="{ 'text-success': usr.activated, 'text-danger': !usr.activated }">{{usr.activated ?
                     'Активирован' : 'Не активирован'}}</li>
             </ul>
-            <div class="d-flex justify-content-end gap-3 mt-3">
-                <div *ngIf="!usr.roles.includes(adminRole)" class="d-flex gap-3">
+            <div *ngIf="!usr.roles.includes(adminRole)" class="d-flex justify-content-end gap-3 mt-3">
+                <div  class="d-flex gap-3">
                     @if (usr.isBlocked) {
                     <button class="btn btn-success" data-bs-toggle="modal" [ngbTooltip]="'Разблокировать'"
                         placement="top" aria-label="Разблокировать" data-bs-target="#unblockUserModal"
@@ -81,6 +81,7 @@
                             class="bi bi-ban"></i></button>
                     }
                 </div>
+                
                 <button class="btn btn-danger" data-bs-toggle="modal" [ngbTooltip]="'Удалить'" placement="top"
                     aria-label="Удалить" data-bs-target="#deleteUserModal" (click)="onSelectUser(usr)"><i
                         class="bi bi-trash"></i></button>
