@@ -67,7 +67,7 @@ export class MapComponent implements OnDestroy {
       this.yApiLoaderService.load().subscribe((v) => {
         v.geolocation.getPosition().then((result) => {
           const newCoords: LngLat = [result.coords[0], result.coords[1]];
-          this.currentLocationService.setPosition(newCoords);
+          this.currentLocationService.setPosition([...newCoords]);
           this.mapProps = {
             ...this.mapProps,
             location: {

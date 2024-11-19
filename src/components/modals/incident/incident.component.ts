@@ -12,6 +12,7 @@ import { SpinnerComponent } from '../../spinner/spinner.component';
 import { ToastComponent } from '../../toast/toast.component';
 import { CommonModule } from '@angular/common';
 import {
+  CurrentLocationService,
   PointsService,
   ToastService,
   UserService,
@@ -47,6 +48,7 @@ export class IncidentModalComponent implements AfterViewInit, OnChanges {
     private readonly toastService: ToastService,
     private readonly pointsService: PointsService,
     private readonly userService: UserService,
+    private readonly currentLocationService: CurrentLocationService,
     private readonly cdr: ChangeDetectorRef
   ) {}
   ngOnChanges(changes: SimpleChanges): void {
@@ -55,8 +57,8 @@ export class IncidentModalComponent implements AfterViewInit, OnChanges {
       .getPointInfo({
         markId: changes['incidentFeature'].currentValue.id,
         userId: this.userService.user()?.id ?? '',
-        lng: changes['incidentFeature'].currentValue.geometry.coordinates[0],
-        lat: changes['incidentFeature'].currentValue.geometry.coordinates[1],
+        lng: this.currentLocationService.position()?.[1] ?? 0,
+        lat: this.currentLocationService.position()?.[0] ?? 0,
       })
       .subscribe((data) => {
         this.selectedIncident = { ...data };
