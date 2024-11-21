@@ -21,6 +21,7 @@ import {
   ACCESS_TOKEN_KEY,
   RUS_PHONE_NUMBER_REGULAR,
 } from '../../../libs/helpers';
+import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 
 @Component({
   selector: 'app-update-current-user',
@@ -96,11 +97,21 @@ export class UpdateCurrentUserComponent implements AfterViewInit, OnChanges {
             localStorage.setItem(ACCESS_TOKEN_KEY, data.accessToken);
             this.userService.setUser({ ...data.user });
           },
-          error: () => {
-            this.toastService.showToast(
-              'Ошибка',
-              'Произошла ошибка при обновлении данных'
-            );
+          error: (error: HttpErrorResponse) => {
+            switch (error.status) {
+              case HttpStatusCode.Conflict:
+                this.toastService.showToast(
+                  'Ошибка',
+                  'Пользователь с такой почтой уже существует'
+                );
+                break;
+              default:
+                this.toastService.showToast(
+                  'Ошибка',
+                  'Произошла ошибка при обновлении данных'
+                );
+                break;
+            }
           },
         })
         .add(() => {
