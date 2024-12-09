@@ -5,7 +5,7 @@
         @else {
         <ul class="pagination mb-0">
                 <li class="page-item"><button class="page-link" (click)="goToPreviousPage()"
-                                [disabled]="activePage <= 1">Previous</button></li>
+                                [disabled]="activePage <= 1">Назад</button></li>
 
                 <ng-container *ngIf="total > 0 ">
 
@@ -22,7 +22,7 @@
 
 
                 <li class="page-item"><button class="page-link" [disabled]="activePage * limit >= total"
-                                (click)="goToNextPage()">Next</button></li>
+                                (click)="goToNextPage()">Далее</button></li>
         </ul>
         }
 

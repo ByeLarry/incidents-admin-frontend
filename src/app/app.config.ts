@@ -11,6 +11,7 @@ import {
   BaseUrlInterceptor,
   AuthInterceptor,
   TimeoutInterceptor,
+  RefreshInterceptor,
 } from '../libs/interceptors';
 import { provideYConfig } from 'angular-yandex-maps-v3';
 import { YMAP_CONFIG } from '../libs/helpers';
@@ -28,6 +29,11 @@ export const appConfig: ApplicationConfig = {
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RefreshInterceptor,
       multi: true,
     },
     {

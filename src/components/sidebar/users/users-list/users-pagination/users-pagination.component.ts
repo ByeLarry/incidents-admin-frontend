@@ -30,9 +30,9 @@ export class UsersPaginationComponent implements AfterViewInit {
     this.paginationData$ = this.userListService.getPaginationDataAsObservable();
     this.paginationData$.subscribe((data) => {
       if (data) {
-        this.activePage = data.page;
-        this.limit = data.limit;
-        this.total = data.total;
+        this.activePage = Number(data.page);
+        this.limit = Number(data.limit);
+        this.total = Number(data.total);
       }
       this.pending = false;
     });
