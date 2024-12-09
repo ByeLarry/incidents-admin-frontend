@@ -45,7 +45,7 @@ export class PointsService implements OnDestroy {
   }
 
   private getAllPoints() {
-    return this.http.get<Feature[]>('/api/marks/all', {
+    return this.http.get<Feature[]>('/api/marks/admin/all', {
       withCredentials: true,
     });
   }

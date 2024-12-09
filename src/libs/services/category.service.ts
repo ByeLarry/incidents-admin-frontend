@@ -40,7 +40,7 @@ export class CategoryService {
   }
 
   findAll() {
-    return this.http.get<CategoryDto[]>('/api/categories/categories');
+    return this.http.get<CategoryDto[]>('/api/categories');
   }
 
   getStats() {
