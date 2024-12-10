@@ -38,6 +38,7 @@ export class LoginFormComponent implements AfterViewInit {
   ) {
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      surname: new FormControl('', [Validators.required, Validators.minLength(3)]),
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(8),
@@ -54,6 +55,7 @@ export class LoginFormComponent implements AfterViewInit {
       this.isSubmitting = true;
       const loginData: LoginDto = {
         name: this.form.value.name,
+        surname: this.form.value.surname,
         password: this.form.value.password,
       };
       this.authService
@@ -71,7 +73,7 @@ export class LoginFormComponent implements AfterViewInit {
             )
               this.toastService.showToast(
                 'Ошибка входа',
-                'Неправильно введен логин или пароль'
+                'Неправильно введены учетные данные'
               );
             else this.toastService.showToast('Ошибка', 'Сервер недоступен');
           },

@@ -5,10 +5,19 @@
         </div>
         <div class="mb-3">
             <label for="inputName" class="form-label">Имя</label>
-            <input type="text" class="form-control" id="inputName" formControlName="name" aria-describedby="emailHelp"
+            <input type="text" class="form-control" id="inputName" formControlName="name" 
                 required />
             <ng-container *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
                 <div class="text-danger">Минимальная длина имени 3 символа</div>
+            </ng-container>
+        </div>
+
+        <div class="mb-3">
+            <label for="inputSurname" class="form-label">Фамилия</label>
+            <input type="text" class="form-control" id="inputSurname" formControlName="surname" 
+                required />
+            <ng-container *ngIf="form.get('surname')?.invalid && form.get('surname')?.touched">
+                <div class="text-danger">Минимальная длина фамилии 3 символа</div>
             </ng-container>
         </div>
 
