@@ -63,8 +63,9 @@ export class CreateAdminModalComponent implements AfterViewInit {
       };
 
       this.userService.addAdmin(createAdminData).subscribe({
+
         next: () => {
-          this.userListService.refetch();
+          this.userListService.refetchPaginatedUsers();
           this.toastService.showToast('Успех', 'Админ добавлен');
         },
         error: (error: HttpErrorResponse) => {

@@ -8,7 +8,11 @@ import {
 } from '@angular/core';
 import { ToastService, UserListService } from '../../../../libs/services';
 import { UserDto } from '../../../../libs/dto';
-import { RolesEnum, SpinnerColorsEnum } from '../../../../libs/enums';
+import {
+  RolesEnum,
+  SpinnerColorsEnum,
+  UserSortEnum,
+} from '../../../../libs/enums';
 import { ToastComponent } from '../../../toast/toast.component';
 import { BlockUserModalComponent } from '../../../modals/block-user/block-user.component';
 import { UnblockUserModalComponent } from '../../../modals/unblock-user/unblock-user.component';
@@ -47,6 +51,7 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
   spinnerColor = SpinnerColorsEnum.PRIMARY;
   adminRole = RolesEnum.ADMIN;
   users$ = this.userListService.getUsersAsObservable();
+  selectedSortKey = UserSortEnum.CREATED_AT_ASC;
 
   constructor(
     private readonly userListService: UserListService,
@@ -84,7 +89,7 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
         },
       });
 
-      const usersSubscription = this.users$.subscribe(() => {
+    const usersSubscription = this.users$.subscribe(() => {
       this.form.setValue({
         search: this.form.get('search')?.value,
       });
@@ -107,6 +112,14 @@ export class UsersListComponent implements AfterViewInit, OnInit, OnDestroy {
       await navigator.clipboard.writeText(id);
       this.toastService.showToast('Скопировано', id);
     }
+  }
+
+  onSelectCreatedAtAsc() {
+    this.selectedSortKey = UserSortEnum.CREATED_AT_ASC;
+  }
+
+  onSelectCreatedAtDesc() {
+    this.selectedSortKey = UserSortEnum.CREATED_AT_DESC;
   }
 
   onSelectUser(data: UserDto) {

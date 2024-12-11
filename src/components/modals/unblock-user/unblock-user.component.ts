@@ -39,7 +39,7 @@ export class UnblockUserModalComponent implements AfterViewInit {
       .unblockUser({ id: this.user!.id })
       .subscribe({
         next: () => {
-          this.userListService.refetch();
+          this.userListService.refetchPaginatedUsers();
         },
         error: () => {
           this.toastService.showToast(

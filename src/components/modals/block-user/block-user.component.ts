@@ -39,7 +39,7 @@ export class BlockUserModalComponent implements AfterViewInit {
       .blockUser({ id: this.user!.id })
       .subscribe({
         next: () => {
-          this.userListService.refetch();
+          this.userListService.refetchPaginatedUsers();
         },
         error: () => {
           this.toastService.showToast(

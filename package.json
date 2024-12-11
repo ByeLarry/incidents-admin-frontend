@@ -1,7 +1,7 @@
 {
   "name": "admin-front",
   "author": "Solovey Roman",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "GPL-3.0-only",
   "description": "Admin frontend for the Incidents project",
   "scripts": {

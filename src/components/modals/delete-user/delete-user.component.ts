@@ -57,7 +57,7 @@ export class DeleteUserModalComponent implements AfterViewInit, OnChanges {
       .subscribe({
         next: () => {
           this.toastService.showToast('Успех', 'Пользователь удален');
-          this.userListServie.refetch();
+          this.userListServie.refetchPaginatedUsers();
         },
         error: (error: HttpErrorResponse) => {
           if (error.status === HttpStatusCode.Conflict)

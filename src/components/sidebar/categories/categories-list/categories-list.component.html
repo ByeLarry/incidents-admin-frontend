@@ -1,26 +1,42 @@
-<div class="card border-light d-flex flex-column gap-3">
-    <form class="d-flex flex-column" role="search" [formGroup]="form">
-        <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search" formControlName="search">
-    </form>
-    @if (searchPending) {
-    <div class="d-flex justify-content-center"><app-spinner [color]="spinnerColor" /></div>
-    }
-    @if (!searchMode) {
-    <ng-container *ngIf="categories$ | async as categories">
+<ng-container *ngIf="categories$ | async as categories">
+    @if (categories.length) {
+    <div class="card border-light d-flex flex-column gap-3">
+        <form class="d-flex flex-column" role="search" [formGroup]="form">
+            <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search"
+                formControlName="search">
+        </form>
+        <div class="btn-group" role="group" aria-label="Categories radio toggle button group">
+            <input type="radio" class="btn-check" name="btn-radio" id="created-at-asc" autocomplete="off" checked
+                (change)="onSelectCreatedAtAsc()">
+            <label class="btn btn-outline-primary" for="created-at-asc">Сначала старые</label>
+
+            <input type="radio" class="btn-check" name="btn-radio" id="created-at-desc" autocomplete="off"
+                (change)="onSelectCreatedAtDesc()">
+            <label class="btn btn-outline-primary" for="created-at-desc">Сначала новые</label>
+        </div>
+
+        @if (searchPending) {
+        <div class="d-flex justify-content-center"><app-spinner [color]="spinnerColor" /></div>
+        }
+        @if (!searchMode) {
         <ng-container *ngFor="let category of categories">
             <ng-container *ngTemplateOutlet="categoryListItem; context: { $implicit: category }"></ng-container>
         </ng-container>
-    </ng-container>
-    } @else {
-    <ng-container *ngIf="searchResults">
-        <ng-container *ngFor="let category of searchResults">
-            <ng-container *ngTemplateOutlet="categoryListItem; context: { $implicit: category }"></ng-container>
+        } @else {
+        <ng-container *ngIf="searchResults">
+            <ng-container *ngFor="let category of searchResults">
+                <ng-container *ngTemplateOutlet="categoryListItem; context: { $implicit: category }"></ng-container>
+            </ng-container>
         </ng-container>
-    </ng-container>
+        }
+    </div>
+    @if (categories.length !== 0 && !searchMode) {
+    <div class="card-footer">
+        <app-categories-pagination [sortKey]="selectedSortKey" />
+    </div>
     }
-
-
-</div>
+    }
+</ng-container>
 
 <ng-template #categoryListItem let-category>
     <div class="card">

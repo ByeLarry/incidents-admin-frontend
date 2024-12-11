@@ -9,7 +9,6 @@ import {
 import { UpdateCategoryModalComponent } from '../../../modals/update-category/update-category.components';
 import { CategoryDto } from '../dto';
 import { CategoryService, ToastService } from '../../../../libs/services';
-import { toObservable } from '@angular/core/rxjs-interop';
 import { DeleteCategoryModalComponent } from '../../../modals/delete-category/delete-category.component';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -17,7 +16,8 @@ import { debounceTime, map, of, Subscription, switchMap } from 'rxjs';
 import { SEARCH_DEBOUNCE_TIME } from '../../../../libs/helpers';
 import { ToastComponent } from '../../../toast/toast.component';
 import { SpinnerComponent } from '../../../spinner/spinner.component';
-import { SpinnerColorsEnum } from '../../../../libs/enums';
+import { CategoriesSortEnum, SpinnerColorsEnum } from '../../../../libs/enums';
+import { CategoriesPaginationComponent } from './categories-pagination/categories-pagination.component';
 
 @Component({
   selector: 'app-categories-list',
@@ -30,6 +30,7 @@ import { SpinnerColorsEnum } from '../../../../libs/enums';
     ReactiveFormsModule,
     ToastComponent,
     SpinnerComponent,
+    CategoriesPaginationComponent,
   ],
   templateUrl: './categories-list.component.html',
 })
@@ -44,8 +45,9 @@ export class CategoriesListComponent
   searchMode = false;
   searchPending = false;
   spinnerColor = SpinnerColorsEnum.PRIMARY;
-  categories$ = toObservable(this.categoryService.categories);
+  categories$ = this.categoryService.getPaginatedCategoriesAsObservable();
   isDeleting = false;
+  selectedSortKey = CategoriesSortEnum.CREATED_AT_ASC;
 
   constructor(
     private readonly categoryService: CategoryService,
@@ -102,5 +104,13 @@ export class CategoriesListComponent
 
   onDeleteButtonClick(category: CategoryDto) {
     this.selectedCategory = { ...category };
+  }
+
+  onSelectCreatedAtAsc() {
+    this.selectedSortKey = CategoriesSortEnum.CREATED_AT_ASC;
+  }
+
+  onSelectCreatedAtDesc() {
+    this.selectedSortKey = CategoriesSortEnum.CREATED_AT_DESC;
   }
 }

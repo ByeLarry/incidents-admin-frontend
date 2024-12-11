@@ -8,20 +8,27 @@ import {
   UpdateCategoryDto,
 } from '../../components/sidebar/categories/dto';
 import { tap } from 'rxjs';
+import { CATEGORIES_PAGINATION_LIMIT } from '../helpers';
+import { CategoriesSortEnum } from '../enums';
+import { toObservable } from '@angular/core/rxjs-interop';
+import { CategoriesPaginationDto } from '../dto';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CategoryService {
   categories = signal<CategoryDto[]>([]);
+  paginatedCategories = signal<CategoryDto[]>([]);
+  paginationData = signal<CategoriesPaginationDto | null>(null);
   filteredCategories = signal<CategoryDto[]>([]);
 
   constructor(private readonly http: HttpClient) {
     this.loadCategories();
+    this.refetchPaginatedCategories();
   }
 
   private loadCategories() {
-    this.findAll().subscribe({
+    this.getAllCategories().subscribe({
       next: (categories) => {
         this.categories.set(categories);
         this.filteredCategories.set(categories);
@@ -39,8 +46,41 @@ export class CategoryService {
     });
   }
 
-  findAll() {
+  getAllCategories() {
     return this.http.get<CategoryDto[]>('/api/categories');
+  }
+
+  private getAllCategoriesWithPagination(
+    page: number,
+    limit: number,
+    sort: string
+  ) {
+    return this.http.get<CategoriesPaginationDto>(
+      `/api/categories/pagination?page=${page}&limit=${limit}&sort=${sort}`
+    );
+  }
+
+  refetchPaginatedCategories(
+    page = 1,
+    limit = CATEGORIES_PAGINATION_LIMIT,
+    sort = CategoriesSortEnum.CREATED_AT_ASC
+  ) {
+    this.getAllCategoriesWithPagination(page, limit, sort).subscribe((data) => {
+      this.paginatedCategories.set(data.categories);
+      this.paginationData.set(data);
+    });
+  }
+
+  getPaginationDataAsObservable() {
+    return toObservable(this.paginationData);
+  }
+
+  getCategoriesAsObservable() {
+    return toObservable(this.categories);
+  }
+
+  getPaginatedCategoriesAsObservable() {
+    return toObservable(this.paginatedCategories);
   }
 
   getStats() {

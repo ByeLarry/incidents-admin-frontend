@@ -76,7 +76,7 @@ export class CreateUserComponent implements AfterViewInit {
 
       this.userService.createUser(createUserData).subscribe({
         next: () => {
-          this.userListService.refetch();
+          this.userListService.refetchPaginatedUsers();
           this.toastService.showToast('Успех', 'Пользователь создан');
         },
         error: (error) => {

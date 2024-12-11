@@ -1,18 +1,29 @@
-<div class="card">
-    <div class="card-header d-flex justify-content-center mb-3">
-        <h3 class="h3">Список</h3>
+<ng-container *ngIf="users$ | async as users">
+    <div class="card">
+        <div class="card-header d-flex justify-content-center mb-3">
+            <h3 class="h3">Список</h3>
+        </div>
+        <div class="card-body p-3 d-flex flex-column gap-3">
+            @if (users.length) {
+            <form class="d-flex flex-column" role="search" [formGroup]="form">
+                <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search"
+                    formControlName="search">
 
-    </div>
-    <div class="card-body p-3 d-flex flex-column gap-3">
-        <form class="d-flex flex-column" role="search" [formGroup]="form">
-            <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search"
-                formControlName="search">
+            </form>
 
-        </form>
-        @if (searchPending) {
-        <div class="d-flex justify-content-center"><app-spinner [color]="spinnerColor" /></div>
-        }
-        <ng-container *ngIf="users$ | async as users">
+            <div class="btn-group" role="group" aria-label="Users radio toggle button group">
+                <input type="radio" class="btn-check" name="btn-radio" id="created-at-asc" autocomplete="off" checked
+                    (change)="onSelectCreatedAtAsc()">
+                <label class="btn btn-outline-primary" for="created-at-asc">Сначала старые</label>
+
+                <input type="radio" class="btn-check" name="btn-radio" id="created-at-desc" autocomplete="off"
+                    (change)="onSelectCreatedAtDesc()">
+                <label class="btn btn-outline-primary" for="created-at-desc">Сначала новые</label>
+            </div>
+            }
+            @if (searchPending) {
+            <div class="d-flex justify-content-center"><app-spinner [color]="spinnerColor" /></div>
+            }
             @if(users.length === 0) {
             <div class="d-flex justify-content-center ">
                 <h6>Пусто!</h6>
@@ -30,16 +41,15 @@
             </ng-container>
             }
             }
-        </ng-container>
-    </div>
-    <ng-container *ngIf="users$ | async as users">
+        </div>
         @if (users.length !== 0 && !searchMode) {
         <div class="card-footer">
-            <app-users-pagination />
+            <app-users-pagination [sortKey]="selectedSortKey" />
         </div>
         }
-    </ng-container>
-</div>
+    </div>
+</ng-container>
+
 
 <ng-template #userListItem let-usr>
     <div class="card border-black long-text">
@@ -69,7 +79,7 @@
                     'Активирован' : 'Не активирован'}}</li>
             </ul>
             <div *ngIf="!usr.roles.includes(adminRole)" class="d-flex justify-content-end gap-3 mt-3">
-                <div  class="d-flex gap-3">
+                <div class="d-flex gap-3">
                     @if (usr.isBlocked) {
                     <button class="btn btn-success" data-bs-toggle="modal" [ngbTooltip]="'Разблокировать'"
                         placement="top" aria-label="Разблокировать" data-bs-target="#unblockUserModal"
@@ -81,7 +91,7 @@
                             class="bi bi-ban"></i></button>
                     }
                 </div>
-                
+
                 <button class="btn btn-danger" data-bs-toggle="modal" [ngbTooltip]="'Удалить'" placement="top"
                     aria-label="Удалить" data-bs-target="#deleteUserModal" (click)="onSelectUser(usr)"><i
                         class="bi bi-trash"></i></button>

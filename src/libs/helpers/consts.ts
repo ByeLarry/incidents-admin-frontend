@@ -7,6 +7,7 @@ export const ACCESS_TOKEN_KEY = 'access_token_admin';
 export const SIDEBAR_LOCAL_STORAGE_KEY = 'sidebar';
 export const RUS_PHONE_NUMBER_REGULAR = /^(?:\+7|8)\d{10}$/;
 export const USERS_PAGINATION_LIMIT = 2;
+export const CATEGORIES_PAGINATION_LIMIT = 3;
 export const YMAP_CONFIG: YConfig = {
   apikey: environment.ymapsApiKey,
   lang: 'ru_RU',
