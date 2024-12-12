@@ -94,7 +94,12 @@ export class CategoryService {
       .post<CategoryDto>('/api/categories/create', data, {
         withCredentials: true,
       })
-      .pipe(tap(() => this.loadCategories()));
+      .pipe(
+        tap(() => {
+          this.loadCategories();
+          this.refetchPaginatedCategories();
+        })
+      );
   }
 
   delete(data: DeleteCategoryDto) {
@@ -102,7 +107,12 @@ export class CategoryService {
       .delete(`/api/categories?id=${data.id}`, {
         withCredentials: true,
       })
-      .pipe(tap(() => this.loadCategories()));
+      .pipe(
+        tap(() => {
+          this.loadCategories();
+          this.refetchPaginatedCategories();
+        })
+      );
   }
 
   update(data: UpdateCategoryDto) {
@@ -110,7 +120,12 @@ export class CategoryService {
       .patch('/api/categories', data, {
         withCredentials: true,
       })
-      .pipe(tap(() => this.loadCategories()));
+      .pipe(
+        tap(() => {
+          this.loadCategories();
+          this.refetchPaginatedCategories();
+        })
+      );
   }
 
   search(query: string) {
