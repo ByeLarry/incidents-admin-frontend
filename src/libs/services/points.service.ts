@@ -72,7 +72,7 @@ export class PointsService implements OnDestroy {
   }
 
   deletePointById(id: number) {
-    return this.http.delete(`/api/marks/${id}`, {
+    return this.http.delete(`/api/marks/admin/${id}`, {
       withCredentials: true,
     });
   }
