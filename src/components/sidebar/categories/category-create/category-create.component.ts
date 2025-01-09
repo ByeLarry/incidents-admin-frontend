@@ -46,12 +46,13 @@ export class CategoryCreateComponent implements AfterViewInit {
   onSubmit() {
     if (this.form.valid) {
       this.isSubmitting = true;
-      const loginData: CreateCategoryDto = {
+      const data: CreateCategoryDto = {
         name: this.form.value.name,
         color: this.form.value.color,
       };
+      console.log(data);
       this.categoryService
-        .create(loginData)
+        .create(data)
         .subscribe({
           error: (error) => {
             console.error(error);

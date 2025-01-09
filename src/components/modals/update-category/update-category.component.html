@@ -19,10 +19,12 @@
                         </ng-container>
                     </div>
                     <div class="mg-3">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="update-category-color">Цвет</span>
-                            <input type="text" formControlName="color" class="form-control"
-                                aria-label="Sizing example input" aria-describedby="update-category-color" />
+                        <div class=" mb-3">
+                            <span class="input-group-text" id="update-category-color">Цвет
+                                <input type="color" formControlName="color" class="form-control form-control-color ms-3"
+                                    aria-label="Sizing example input" aria-describedby="update-category-color" />
+                                <div id="inpCatColorHelp" class="form-text ms-1">{{form.get('color')?.value}}</div>
+                            </span>
                         </div>
                     </div>
                 </form>
